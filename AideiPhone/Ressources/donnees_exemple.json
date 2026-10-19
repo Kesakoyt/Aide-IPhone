@@ -1,0 +1,198 @@
+{
+  "categories": [
+    {
+      "id": "premiers-pas",
+      "titre": "Premiers pas",
+      "resume": "Configurez votre iPhone et prenez en main l’essentiel.",
+      "symbole": "sparkles",
+      "couleur": "#0A84FF",
+      "ordre": 1
+    },
+    {
+      "id": "photos-cameras",
+      "titre": "Photos et caméra",
+      "resume": "Photographiez, retouchez et libérez de la place.",
+      "symbole": "camera",
+      "couleur": "#FF9F0A",
+      "ordre": 2
+    },
+    {
+      "id": "confidentialite",
+      "titre": "Confidentialité",
+      "resume": "Protégez vos données et votre vie privée.",
+      "symbole": "lock.shield",
+      "couleur": "#30D158",
+      "ordre": 3
+    },
+    {
+      "id": "batterie-sauvegarde",
+      "titre": "Batterie et sauvegarde",
+      "resume": "Gagnez en autonomie et gardez vos données en sécurité.",
+      "symbole": "battery.100",
+      "couleur": "#FF375F",
+      "ordre": 4
+    },
+    {
+      "id": "applications",
+      "titre": "Applications et App Store",
+      "resume": "Installez, organisez et gérez vos applications.",
+      "symbole": "apps.iphone",
+      "couleur": "#BF5AF2",
+      "ordre": 5
+    },
+    {
+      "id": "accessibilite",
+      "titre": "Accessibilité",
+      "resume": "Adaptez votre iPhone à vos besoins.",
+      "symbole": "accessibility",
+      "couleur": "#64D2FF",
+      "ordre": 6
+    }
+  ],
+  "fiches": [
+    {
+      "id": "configurer-iphone",
+      "titre": "Configurer votre iPhone pour la première fois",
+      "resume": "De l’allumage à l’identifiant Apple : les étapes essentielles pour commencer.",
+      "categorieID": "premiers-pas",
+      "ordre": 1,
+      "motsCles": ["configuration", "installation", "premier", "identifiant apple", "activation", "bienvenue"],
+      "contenu": "## Avant de commencer\nGardez votre carte SIM (ou eSIM), votre identifiant Apple et son mot de passe à portée de main. Si vous venez d’un ancien iPhone, une sauvegarde iCloud ou une connexion directe permet de reprendre toutes vos données.\n\n## Les étapes\n1. Allumez votre iPhone en maintenant le bouton latéral.\n2. Faites glisser l’écran pour choisir votre langue puis votre pays ou région.\n3. Connectez-vous à un réseau Wi-Fi pour activer l’appareil.\n4. Configurez Face ID ou Touch ID, puis choisissez un code à 6 chiffres.\n5. Connectez-vous avec votre identifiant Apple, ou créez-en un.\n6. Décidez si vous souhaitez restaurer une sauvegarde ou repartir de zéro.\n\n## Pour aller plus loin\nOuvrez **Réglages > Général > Informations** pour vérifier le nom et la capacité de votre iPhone, puis **Réglages > Général > Mise à jour logicielle** pour installer la dernière version d’iOS."
+    },
+    {
+      "id": "gestes-essentiels",
+      "titre": "Comprendre les gestes essentiels",
+      "resume": "Revenir à l’accueil, changer d’application, ouvrir le centre de contrôle : les gestes à maîtriser.",
+      "categorieID": "premiers-pas",
+      "ordre": 2,
+      "motsCles": ["gestes", "navigation", "bouton", "accueil", "applications ouvertes", "centre de contrôle"],
+      "contenu": "Votre iPhone se pilote principalement par gestes. Une fois le mouvement compris, tout devient plus rapide.\n\n## Les gestes de base\n1. **Revenir à l’accueil** : faites glisser vers le haut depuis la barre du bas.\n2. **Voir les applications ouvertes** : glissez vers le haut puis marquez une pause au centre de l’écran.\n3. **Fermer une application** : dans la liste des applications ouvertes, faites glisser la vignette vers le haut.\n4. **Revenir en arrière** : glissez depuis le bord gauche de l’écran.\n\n## Notifications et centre de contrôle\n- **Centre de contrôle** : glissez vers le bas depuis le coin supérieur droit.\n- **Notifications** : glissez vers le bas depuis le milieu du haut de l’écran.\n\n## Astuce\nActivez **Réglages > Accessibilité > Toucher > Assistivetouch** si vous préférez un bouton à l’écran pour remplacer certains gestes."
+    },
+    {
+      "id": "mettre-a-jour-ios",
+      "titre": "Mettre à jour iOS",
+      "resume": "Installez les dernières nouveautés et les correctifs de sécurité.",
+      "categorieID": "premiers-pas",
+      "ordre": 3,
+      "motsCles": ["mise à jour", "ios", "logiciel", "version", "sécurité", "actualisation"],
+      "contenu": "Apple publie régulièrement des mises à jour d’iOS qui apportent des fonctions nouvelles et des correctifs de sécurité importants.\n\n## Vérifier manuellement\n1. Ouvrez **Réglages > Général > Mise à jour logicielle**.\n2. Attendez que votre iPhone vérifie les mises à jour disponibles.\n3. Touchez **Télécharger et installer**, puis saisissez votre code si demandé.\n\n## Activer les mises à jour automatiques\nDans le même écran, activez **Mises à jour automatiques** : votre iPhone installera les nouvelles versions la nuit, une fois chargé et connecté au Wi-Fi.\n\n## Bon à savoir\nGardez au moins 5 Go d’espace libre et une batterie chargée au-delà de la moitié (ou restez branché) avant une grande mise à jour."
+    },
+    {
+      "id": "meilleures-photos",
+      "titre": "Prendre de meilleures photos",
+      "resume": "Quelques réglages simples pour des images plus nettes et mieux cadrées.",
+      "categorieID": "photos-cameras",
+      "ordre": 4,
+      "motsCles": ["photo", "caméra", "appareil photo", "cadrage", "déclencheur", "live"],
+      "contenu": "## Les bases\n1. Ouvrez l’application **Appareil photo** et choisissez le mode **Photo**.\n2. Touchez l’écran pour choisir le point de mise au point et régler l’exposition.\n3. Faites glisser le soleil vers le haut ou le bas pour éclaircir ou assombrir.\n4. Appuyez sur le bouton blanc, ou sur l’un des boutons de volume, pour déclencher.\n\n## Cadrez avec la grille\nActivez **Réglages > Appareil photo > Grille** : la règle des tiers aide à équilibrer vos compositions.\n\n## Pensez au Live Photo et au format\n- Le **Live Photo** conserve quelques secondes d’animation : idéal pour les sujets en mouvement.\n- Dans **Réglages > Appareil photo**, choisissez **Haute efficacité** pour économiser la place, ou **Maximum de compatibilité** pour partager plus facilement."
+    },
+    {
+      "id": "retoucher-photo",
+      "titre": "Retoucher une photo",
+      "resume": "Corrigez la lumière et les couleurs, tout en gardant l’original intact.",
+      "categorieID": "photos-cameras",
+      "ordre": 5,
+      "motsCles": ["retouche", "modifier", "filtre", "recadrer", "lumière", "annuler"],
+      "contenu": "L’application Photos permet de retoucher sans jamais perdre votre image d’origine.\n\n## Retoucher\n1. Ouvrez une photo, puis touchez **Modifier**.\n2. Utilisez les onglets en bas : **Lumière**, **Couleur**, **Brillance**.\n3. Faites glisser les curseurs : l’aperçu se met à jour en direct.\n4. Ajoutez un **filtre** ou recadrez avec l’outil **Recadrer**.\n5. Touchez **Terminé** pour enregistrer.\n\n## Annuler un retouche\nTouchez **Modifier** puis **Revenir**, et confirmez **Revenir à l’original** : la photo initiale est restaurée.\n\n## Astuce\nVérifiez toujours la date affichée avant de partager : le retoucheur ne modifie que l’apparence de l’image, jamais les informations d’origine."
+    },
+    {
+      "id": "liberer-espace",
+      "titre": "Libérer de l’espace de stockage",
+      "resume": "Repérez les fichiers volumineux et laissez iCloud faire le tri.",
+      "categorieID": "photos-cameras",
+      "ordre": 6,
+      "motsCles": ["stockage", "espace", "mémoire", "libérer", "iCloud", "photothèque"],
+      "contenu": "Quand le stockage est saturé, votre iPhone ralentit et ne peut plus mettre à jour ses applications.\n\n## Repérer ce qui prend de la place\n1. Ouvrez **Réglages > Général > Stockage iPhone**.\n2. Consultez la liste des applications, classées par taille.\n3. Touchez une application pour la supprimer ou la décharger.\n\n## Laisser iCloud optimiser la photothèque\nActivez **Réglages > Photos > Optimiser l’iPhone** : les photos complètes restent dans iCloud, votre appareil garde des versions légères.\n\n## Messages et téléchargements\n- Dans l’application **Messages**, supprimez les conversations contenant de grosses pièces jointes.\n- Dans **Réglages > Safari > Téléchargements**, choisissez **Supprimer les éléments téléchargés immédiatement**."
+    },
+    {
+      "id": "autorisations-applications",
+      "titre": "Contrôler les autorisations des applications",
+      "resume": "Décidez qui accède à votre localisation, votre caméra ou votre micro.",
+      "categorieID": "confidentialite",
+      "ordre": 7,
+      "motsCles": ["autorisation", "localisation", "caméra", "micro", "confidentialité", "données"],
+      "contenu": "Chaque application doit demander la permission avant d’utiliser des capteurs sensibles. Vous gardez toujours la main.\n\n## Voir toutes les autorisations\n1. Ouvrez **Réglages > Confidentialité et sécurité**.\n2. Parcourez les rubriques : **Localisation**, **Caméra**, **Micro**, **Photos**, **Contacts**…\n3. Activez ou désactivez l’accès pour chaque application.\n\n## Affiner pour une application\nOuvrez **Réglages > nom de l’application** : vous y retrouvez les mêmes autorisations, plus les notifications et les données cellulaires.\n\n## Bon à savoir\nChoisissez **Lors de l’utilisation** ou **Une fois** pour la localisation : l’application ne pourra pas vous suivre en arrière-plan."
+    },
+    {
+      "id": "mots-de-passe",
+      "titre": "Protéger vos mots de passe",
+      "resume": "Laissez Apple générer et retenir des mots de passe uniques pour chaque service.",
+      "categorieID": "confidentialite",
+      "ordre": 8,
+      "motsCles": ["mot de passe", "identifiant", "safari", "sécurité", "keychain", "fuite"],
+      "contenu": "Utiliser un mot de passe différent pour chaque service est la meilleure protection contre le piratage.\n\n## Laisser le gestionnaire les créer\n1. Sur un site ou dans une application, touchez le champ **Mot de passe**.\n2. Choisissez **Créer un mot de passe fort** : il sera unique et mémorisé.\n3. Confirmez avec Face ID ou Touch ID.\n\n## Retrouver un mot de passe\n- **iOS 18** : ouvrez l’application **Mot de passe**.\n- **iOS 17** : ouvrez **Réglages > Mot de passe**.\n- Sur Mac : ouvrez **Safari > Réglages > Mot de passe**.\n\n## Vérifier les mots de passe compromis\nDans la même section, touchez **Mot de passe compromis** pour voir les identifiants volés lors de fuites de données, puis changez-les immédiatement."
+    },
+    {
+      "id": "iphone-perdu",
+      "titre": "En cas d’iPhone perdu ou volé",
+      "resume": "Localisez, verrouillez ou effacez votre iPhone à distance.",
+      "categorieID": "confidentialite",
+      "ordre": 9,
+      "motsCles": ["perdu", "vol", "trouver", "localiser", "effacer", "icloud"],
+      "contenu": "Agissez vite depuis n’importe quel navigateur : vos données restent protégées par votre code.\n\n## Localiser votre iPhone\n1. Rendez-vous sur **icloud.com/find** avec votre identifiant Apple.\n2. Sélectionnez **iPhone** dans la liste des appareils.\n3. Choisissez **Perdu** : un message s’affiche à l’écran et le paiement est suspendu.\n\n## Effacer à distance\nSi l’appareil est définitivement perdu, touchez **Effacer l’iPhone** : toutes les données sont supprimées et le verrouillage d’activation reste actif pour décourager le revente.\n\n## Bon à savoir\nActivez **Réglages > votre nom > Trouver > Retrouver mon iPhone** : c’est cette option qui rend tout le reste possible. Notez aussi votre code à 6 chiffres en lieu sûr."
+    },
+    {
+      "id": "autonomie-batterie",
+      "titre": "Prolonger l’autonomie de la batterie",
+      "resume": "Quelques réglages qui font gagner plusieurs heures par jour.",
+      "categorieID": "batterie-sauvegarde",
+      "ordre": 10,
+      "motsCles": ["batterie", "autonomie", "charge", "consommation", "bas débit", "santé"],
+      "contenu": "L’autonomie dépend surtout de la luminosité, du réseau et des applications actives en arrière-plan.\n\n## Les réglages qui comptent\n1. Activez **Réglages > Batterie > Mode basse consommation** dès que l’autonomie affichée devient faible.\n2. Réduisez la luminosité, ou activez la **Luminosité automatique** dans **Réglages > Accessibilité > Affichage et taille du texte**.\n3. Désactivez le **Wi-Fi** et les **données cellulaires** dans les zones sans réseau.\n4. Dans **Réglages > Général > Actualisation en arrière-plan**, limitez les applications qui se mettent à jour en continu.\n\n## Préserver la batterie sur la durée\nDans **Réglages > Batterie > Santé de la batterie**, activez **Optimisation de la charge** : votre iPhone complète la charge juste avant votre réveil.\n\n## Suivre sa consommation\nLa section **Batterie** détaille la consommation par application : si une application consomme anormalement, mettez-la à jour ou réinstallez-la."
+    },
+    {
+      "id": "sauvegarde-icloud",
+      "titre": "Sauvegarder votre iPhone avec iCloud",
+      "resume": "Une sauvegarde automatique qui vous sauve en cas de perte.",
+      "categorieID": "batterie-sauvegarde",
+      "ordre": 11,
+      "motsCles": ["sauvegarde", "iCloud", "restaurer", "données", "restauration", "compte"],
+      "contenu": "Une sauvegarde régulière permet de retrouver applications, photos et réglages sur un nouvel appareil.\n\n## Activer la sauvegarde iCloud\n1. Ouvrez **Réglages > votre nom > iCloud > Sauvegarde iCloud**.\n2. Activez **Sauvegarde iCloud**.\n3. Touchez **Sauvegarder maintenant** pour créer une première copie.\n\n## Ce qui est sauvegardé\nComptes, mots de passe, disposition des écrans, photos (avec iCloud Photos), données de Santé et réglages.\n\n## Bon à savoir\nLa sauvegarde se fait la nuit, une fois branché au chargeur et connecté au Wi-Fi. Vérifiez la date de la dernière copie tout en bas de la page **Sauvegarde iCloud**."
+    },
+    {
+      "id": "installer-applications",
+      "titre": "Installer et mettre à jour des applications",
+      "resume": "L’App Store : la seule source officielle d’applications pour votre iPhone.",
+      "categorieID": "applications",
+      "ordre": 12,
+      "motsCles": ["app store", "installer", "mettre à jour", "application", "obtenir", "compte"],
+      "contenu": "## Installer une application\n1. Ouvrez l’application **App Store**.\n2. Parcourez les onglets **Aujourd’hui**, **Jeux**, **Apps**, ou utilisez la **Recherche**.\n3. Touchez **Obtenir**, puis confirmez avec Face ID ou Touch ID.\n\n## Mettre à jour\n- **Manuellement** : App Store, puis **Compte** (votre photo, en haut à droite), puis **Mises à jour**.\n- **Automatiquement** : **Réglages > App Store > Mises à jour d’applications**.\n\n## Bon à savoir\nUne application gratuite affiche **Obtenir** et peut ensuite proposer des achats intégrés : vérifiez toujours le tarif avant de valider."
+    },
+    {
+      "id": "organiser-ecrans",
+      "titre": "Organiser ses écrans d’accueil",
+      "resume": "Dossiers, widgets et bibliothèque : un écran d’accueil épuré s’utilise plus vite.",
+      "categorieID": "applications",
+      "ordre": 13,
+      "motsCles": ["écran", "icône", "dossier", "bibliothèque", "widget", "organisation"],
+      "contenu": "Un écran d’accueil épuré rend l’iPhone plus rapide à utiliser au quotidien.\n\n## Déplacer et ranger\n1. Appuyez longuement sur une icône, puis choisissez **Modifier l’écran**.\n2. Faites glisser les applications, y compris vers un autre écran.\n3. Appuyez sur les points en haut à gauche d’une icône pour créer un **dossier**, puis nommez-le.\n\n## La bibliothèque d’applications\nFaites glisser jusqu’au bout des écrans : la **Bibliothèque d’applications** classe toutes vos applications par catégorie, avec une recherche en haut.\n\n## Widgets et pages masquées\nAppuyez longuement sur l’écran vide, touchez **+** pour ajouter des **widgets**. Toujours en **Modifier l’écran**, les points en bas permettent de masquer une page entière d’un coup."
+    },
+    {
+      "id": "gerer-abonnements",
+      "titre": "Gérer ses abonnements",
+      "resume": "Repérez, modifiez ou annulez les abonnements passés via l’App Store.",
+      "categorieID": "applications",
+      "ordre": 14,
+      "motsCles": ["abonnement", "app store", "payer", "annuler", "facture", "essai"],
+      "contenu": "De nombreuses applications proposent des essais gratuits qui se transforment ensuite en abonnement payant.\n\n## Voir tous vos abonnements\n1. Ouvrez **Réglages > votre nom > Abonnements**.\n2. Sélectionnez un abonnement actif ou expiré.\n\n## Annuler ou modifier\nTouchez **Annuler l’abonnement** pour empêcher le prochain prélèvement. Vous gardez l’accès jusqu’à la fin de la période déjà payée.\n\n## Vérifier les prélèvements\nL’application **Wallet** et les e-mails **Facture de l’App Store** confirment chaque paiement. Pour un prélèvement inconnu, rendez-vous sur la page **Signaler un problème** du site d’Apple."
+    },
+    {
+      "id": "agrandir-texte",
+      "titre": "Agrandir le texte et mieux voir l’écran",
+      "resume": "Typographie, contraste et zoom : adaptez l’affichage à votre vue.",
+      "categorieID": "accessibilite",
+      "ordre": 15,
+      "motsCles": ["texte", "zoom", "vue", "contraste", "lisibilité", "taille"],
+      "contenu": "L’iPhone adapte sa typographie et ses contrastes à vos besoins, sans rien perdre du contenu.\n\n## Un texte plus grand\n1. Ouvrez **Réglages > Accessibilité > Affichage et taille du texte**.\n2. Faites glisser le curseur **Taille du texte**.\n3. Activez **Texte plus gras** pour renforcer les caractères.\n\n## Zoomer à trois doigts\nActivez **Zoom** dans la même section : un tap à trois doigts zoome n’importe quel écran ; deux taps puis trois doigts pour régler le niveau.\n\n## Contrastes et mouvement\n- **Contraste accru** et **Réduire la transparence** rendent les boutons plus lisibles.\n- **Réduire le mouvement** supprime les animations qui peuvent gêner."
+    },
+    {
+      "id": "raccourcis-accessibilite",
+      "titre": "Activer l’accessibilité rapidement",
+      "resume": "Un triple-clic suffit pour lancer VoiceOver, le zoom ou l’assistance tactile.",
+      "categorieID": "accessibilite",
+      "ordre": 16,
+      "motsCles": ["accessibilité", "voiceover", "raccourci", "triple clic", "siri", "assistance"],
+      "contenu": "Un raccourci permet d’activer une fonction d’accessibilité sans chercher dans les réglages.\n\n## Le raccourci du bouton latéral\n1. Ouvrez **Réglages > Accessibilité > Accès rapide**.\n2. Choisissez la fonction à lancer : **Zoom**, **VoiceOver**, **Contraste**, **Assistivetouch**…\n3. **Triple-clic** sur le bouton latéral pour l’afficher.\n\n## VoiceOver en un geste\nAvec VoiceOver activé, faites glisser un doigt sur l’écran : chaque élément est annoncé vocalement. Double-tap pour ouvrir un élément, glissez avec deux doigts pour faire défiler.\n\n## Demander de l’aide à Siri\nOuvrez l’application **Siri** (ou maintenez le bouton latéral) et demandez par exemple : « Comment régler la luminosité ? » : Siri affiche l’écran de réglage concerné."
+    }
+  ]
+}

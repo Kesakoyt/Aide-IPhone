@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Règles de sécurité Firestore pour l'application Aide iPhone.
+// Lecture publique, écriture interdite : le contenu est édité
+// uniquement depuis la console Firebase ou le script de peuplement.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /categories/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /fiches/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
