@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -77,9 +77,9 @@
 
             <form id="adminLoginForm" class="mt-4 space-y-3" novalidate>
               <div class="field">
-                <label class="label" for="adminEmail">Staff email</label>
+                <label class="label" for="adminE-mail">Staff email</label>
                 <input
-                  id="adminEmail"
+                  id="adminE-mail"
                   class="input"
                   type="email"
                   inputmode="email"
@@ -89,9 +89,9 @@
                 />
               </div>
               <div class="field">
-                <label class="label" for="adminPassword">Password</label>
+                <label class="label" for="adminMot de passe">Mot de passe</label>
                 <input
-                  id="adminPassword"
+                  id="adminMot de passe"
                   class="input"
                   type="password"
                   autocomplete="current-password"
@@ -99,7 +99,7 @@
                   required
                 />
               </div>
-              <button id="adminLoginBtn" type="submit" class="btn btn-primary btn-block">Sign in to console</button>
+              <button id="adminLoginBtn" type="submit" class="btn btn-primary btn-block">Se connecter to console</button>
             </form>
 
             <div class="auth-footnote mt-4">
@@ -169,14 +169,14 @@
             <span class="avatar" id="adminSidebarInitials">A</span>
             <div class="min-w-0 flex-1">
               <p class="truncate text-[0.78rem] font-semibold text-slate-100" id="adminSidebarName">Administrator</p>
-              <p class="truncate text-[0.65rem] text-slate-500" id="adminSidebarEmail">—</p>
+              <p class="truncate text-[0.65rem] text-slate-500" id="adminSidebarE-mail">—</p>
             </div>
           </div>
           <div class="mt-2 flex items-center justify-between gap-2">
             <span class="badge badge-warning">Admin</span>
             <button type="button" class="btn btn-ghost btn-sm" data-admin-action="sign-out">
               <img src="./icons/fluency/log-out.png" class="h-3.5 w-3.5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
-              Sign out
+              Se déconnecter
             </button>
           </div>
           <a
@@ -184,7 +184,7 @@
             target="_blank"
             rel="noopener noreferrer"
             style="display: block; margin-top: 0.5rem; font-size: 0.6rem; color: #475569; text-decoration: none"
-            >Icons by Icons8</a
+            >Icônes par Icons8</a
           >
         </div>
       </aside>
@@ -197,17 +197,17 @@
             </span>
           </a>
           <div class="min-w-0 flex-1">
-            <p class="admin-page-title" id="adminTopTitle">Dashboard</p>
+            <p class="admin-page-title" id="adminTopTitre">Dashboard</p>
             <p class="admin-page-sub hidden sm:block" id="adminTopSubtitle">Live support operations</p>
           </div>
           <span class="net-pill" id="adminNetPill" title="Connection status">
             <span class="status-dot" id="adminNetDot"></span>
-            <span id="adminNetLabel">Online</span>
+            <span id="adminNetLabel">En ligne</span>
           </span>
-          <button type="button" class="icon-btn" data-admin-action="refresh" aria-label="Refresh live data" title="Refresh live data">
+          <button type="button" class="icon-btn" data-admin-action="refresh" aria-label="Actualiser les données" title="Actualiser les données">
             <img src="./icons/fluency/refresh.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
           </button>
-          <button type="button" class="avatar" id="adminTopAvatar" data-admin-action="account" aria-label="Administrator account">
+          <button type="button" class="avatar" id="adminTopAvatar" data-admin-action="account" aria-label="Compte administrateur">
             <span id="adminTopInitials">A</span>
           </button>
         </header>
@@ -233,7 +233,7 @@
               </div>
               <div class="flex flex-wrap gap-2">
                 <button type="button" class="btn btn-secondary btn-sm" data-admin-action="refresh">Refresh data</button>
-                <button type="button" class="btn btn-primary btn-sm" data-admin-nav="tickets">Open ticket queue</button>
+                <button type="button" class="btn btn-primary btn-sm" data-admin-nav="tickets">Ouvrir un ticket queue</button>
               </div>
             </div>
 
@@ -245,9 +245,9 @@
                   </span>
                   <span class="badge badge-resolved">Live</span>
                 </div>
-                <p class="kpi-label">Online now</p>
-                <p class="kpi-value" id="kpiOnline">0</p>
-                <p class="kpi-hint" id="kpiOnlineHint">Waiting for telemetry…</p>
+                <p class="kpi-label">En ligne now</p>
+                <p class="kpi-value" id="kpiEn ligne">0</p>
+                <p class="kpi-hint" id="kpiEn ligneHint">Waiting for telemetry…</p>
               </article>
 
               <article class="kpi-card">
@@ -257,7 +257,7 @@
                   </span>
                   <span class="badge badge-neutral" id="kpiOpenBadge">Queue</span>
                 </div>
-                <p class="kpi-label">Open tickets</p>
+                <p class="kpi-label">Ouvrir un tickets</p>
                 <p class="kpi-value" id="kpiOpenTickets">0</p>
                 <p class="kpi-hint" id="kpiOpenTicketsHint">Nothing waiting</p>
               </article>
@@ -267,11 +267,11 @@
                   <span class="kpi-icon rose">
                     <img src="./icons/fluency/alert-triangle.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
                   </span>
-                  <span class="badge badge-critical" id="kpiUrgentBadge">Priority</span>
+                  <span class="badge badge-critical" id="kpiUrgenteBadge">Priorité</span>
                 </div>
-                <p class="kpi-label">Urgent attention</p>
-                <p class="kpi-value" id="kpiUrgent">0</p>
-                <p class="kpi-hint" id="kpiUrgentHint">No urgent tickets</p>
+                <p class="kpi-label">Urgente attention</p>
+                <p class="kpi-value" id="kpiUrgente">0</p>
+                <p class="kpi-hint" id="kpiUrgenteHint">No urgent tickets</p>
               </article>
 
               <article class="kpi-card">
@@ -279,11 +279,11 @@
                   <span class="kpi-icon cyan">
                     <img src="./icons/fluency/megaphone.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
                   </span>
-                  <span class="badge badge-info" id="kpiAlertsBadge">Live</span>
+                  <span class="badge badge-info" id="kpiAlertesBadge">Live</span>
                 </div>
                 <p class="kpi-label">Active broadcasts</p>
-                <p class="kpi-value" id="kpiActiveAlerts">0</p>
-                <p class="kpi-hint" id="kpiActiveAlertsHint">No active notices</p>
+                <p class="kpi-value" id="kpiActiveAlertes">0</p>
+                <p class="kpi-hint" id="kpiActiveAlertesHint">No active notices</p>
               </article>
             </div>
 
@@ -309,7 +309,7 @@
                       </div>
                     </div>
                     <div class="map-legend" aria-hidden="true">
-                      <span><span class="map-pin online" style="width: 8px; height: 8px; border-width: 1px"></span> Online</span>
+                      <span><span class="map-pin online" style="width: 8px; height: 8px; border-width: 1px"></span> En ligne</span>
                       <span><span class="map-pin offline" style="width: 8px; height: 8px; border-width: 1px"></span> Away</span>
                     </div>
                   </div>
@@ -333,7 +333,7 @@
                           <th scope="col">User</th>
                           <th scope="col">Issue</th>
                           <th scope="col">Status</th>
-                          <th scope="col">Created</th>
+                          <th scope="col">Créé le</th>
                         </tr>
                       </thead>
                       <tbody id="dashboardTicketBody"></tbody>
@@ -350,7 +350,7 @@
                         <img src="./icons/fluency/users.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
                         People
                       </h2>
-                      <p class="card-caption">Online users first, then recent devices.</p>
+                      <p class="card-caption">En ligne users first, then recent devices.</p>
                     </div>
                     <span class="badge badge-resolved" id="liveUsersCount">0</span>
                   </div>
@@ -421,15 +421,15 @@
                   <option value="in_progress">In progress</option>
                   <option value="resolved">Resolved</option>
                 </select>
-                <select id="ticketCategoryFilter" class="select filter-select" aria-label="Filter by category">
-                  <option value="all">All categories</option>
+                <select id="ticketCatégorieFilter" class="select filter-select" aria-label="Filter by category">
+                  <option value="all">Toutes les catégories</option>
                 </select>
-                <select id="ticketPriorityFilter" class="select filter-select" aria-label="Filter by priority">
+                <select id="ticketPrioritéFilter" class="select filter-select" aria-label="Filter by priority">
                   <option value="all">All priorities</option>
-                  <option value="urgent">Urgent</option>
-                  <option value="high">High</option>
-                  <option value="normal">Normal</option>
-                  <option value="low">Low</option>
+                  <option value="urgent">Urgente</option>
+                  <option value="high">Élevée</option>
+                  <option value="normal">Normale</option>
+                  <option value="low">Faible</option>
                 </select>
                 <select id="ticketDateFilter" class="select filter-select" aria-label="Filter by date">
                   <option value="all">Any time</option>
@@ -452,8 +452,8 @@
                       <th scope="col">User</th>
                       <th scope="col">Issue</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Priority</th>
-                      <th scope="col">Created</th>
+                      <th scope="col">Priorité</th>
+                      <th scope="col">Créé le</th>
                       <th scope="col">Technician</th>
                     </tr>
                   </thead>
@@ -531,7 +531,7 @@
           </section>
 
           <!-- Broadcasts ----------------------------------------------------->
-          <section id="adminViewAlerts" data-admin-view="alerts" class="hidden">
+          <section id="adminViewAlertes" data-admin-view="alerts" class="hidden">
             <div class="page-heading flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p class="eyebrow">Communication</p>
@@ -549,15 +549,15 @@
                       <img src="./icons/fluency/megaphone.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
                       Compose broadcast
                     </h2>
-                    <p class="card-caption">Alerts appear at the top of the client app and can trigger a device notification.</p>
+                    <p class="card-caption">Alertes appear at the top of the client app and can trigger a device notification.</p>
                   </div>
                 </div>
 
                 <div id="alertFormError" class="form-error mt-3 hidden" role="alert"></div>
 
                 <div class="field mt-3">
-                  <label class="label" for="alertTitle">Title <span class="req">*</span></label>
-                  <input id="alertTitle" class="input" type="text" maxlength="120" placeholder="Service maintenance tonight" required />
+                  <label class="label" for="alertTitre">Titre <span class="req">*</span></label>
+                  <input id="alertTitre" class="input" type="text" maxlength="120" placeholder="Service maintenance tonight" required />
                 </div>
 
                 <div class="field mt-3">
@@ -629,7 +629,7 @@
                       <span class="status-dot"></span>
                       Aide iPhone · Alert
                     </div>
-                    <h3 id="alertPreviewTitle">Your alert title</h3>
+                    <h3 id="alertPreviewTitre">Your alert title</h3>
                     <p id="alertPreviewMessage">Your message will appear here as you type.</p>
                     <div class="mt-2 flex flex-wrap items-center gap-2">
                       <span class="badge badge-info" id="alertPreviewSeverity">Information</span>
@@ -656,7 +656,7 @@
                     <div class="context-item"><dt>Channel</dt><dd id="pushChannelPanel">Checking…</dd></div>
                   </dl>
                   <button type="button" class="btn btn-secondary btn-sm mt-3" data-admin-action="test-push">
-                    Send test push to my devices
+                    Envoyer test push to my devices
                   </button>
                   <p class="help-text mt-2" id="pushTestHint">Uses the deployed <span class="mono">sendPush</span> callable.</p>
                 </div>
@@ -675,7 +675,7 @@
                 <table class="data-table">
                   <thead>
                     <tr>
-                      <th scope="col">Created</th>
+                      <th scope="col">Créé le</th>
                       <th scope="col">Alert</th>
                       <th scope="col">Severity</th>
                       <th scope="col">Audience</th>
@@ -753,7 +753,7 @@
                   User directory
                   <span class="badge badge-neutral ml-auto" id="exportCountUsers">0</span>
                 </h3>
-                <p>Account profiles, roles and sign-in metadata. Handle as personal data.</p>
+                <p>Compte profiles, roles and sign-in metadata. Handle as personal data.</p>
                 <div class="export-actions">
                   <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-users-csv">CSV</button>
                   <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-users-json">JSON</button>
@@ -764,7 +764,7 @@
                 <h3>
                   <img src="./icons/fluency/megaphone.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
                   Broadcasts
-                  <span class="badge badge-neutral ml-auto" id="exportCountAlerts">0</span>
+                  <span class="badge badge-neutral ml-auto" id="exportCountAlertes">0</span>
                 </h3>
                 <p>Alert history including severity, audience, activation state and push summary.</p>
                 <div class="export-actions">

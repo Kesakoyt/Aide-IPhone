@@ -1,28 +1,9 @@
 /* ==========================================================================
-   Aide iPhone — shared design system (client PWA + admin console)
+   Aide iPhone â€” shared design system (client PWA + admin console)
    ========================================================================== */
 
-:root {
-  --bg: #f7f7f9;
-  --panel: #ffffff;
-  --panel-2: #f1f3f6;
-  --border: #d0d7e2;
-  --text: #1a1d21;
-  --muted: #3f4753;
-  --faint: #5f6b7a;
-  --accent: #2563eb;
-  --accent-2: #1d4ed8;
-  --success: #15803d;
-  --warning: #b45309;
-  --danger: #dc2626;
-  --info: #0369a1;
-  --ring: rgba(37, 99, 235, 0.35);
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  --radius-lg: 14px;
-  --radius-md: 12px;
-  --radius-sm: 10px;
-  font-size: 18px;
-}
+:root {\n  --bg: #ffffff;\n  --panel: #ffffff;\n  --panel-2: #f9f9f9;\n  --border: #d8d8d8;\n  --text: #1f1f1f;\n  --muted: #3b3b3b;\n  --faint: #5f5f5f;\n  --accent: #005fb8;\n  --accent-2: #004c9c;\n  --success: #107c10;\n  --warning: #b14600;\n  --danger: #d13438;\n  --info: #005fb8;\n  --ring: rgba(0, 95, 184, 0.25);\n  --shadow: none;\n  --radius-lg: 8px;\n  --radius-md: 6px;\n  --radius-sm: 4px;\n  font-size: 18px;\n}
+
 
 * {
   box-sizing: border-box;
@@ -230,14 +211,8 @@ body::before {
   margin: 0.2rem 0 0;
 }
 
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(255, 255, 255, 0.98);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: none;
-}
+.app-header {\n  position: sticky;\n  top: 0;\n  z-index: 20;\n  background: #ffffff;\n  border-bottom: 1px solid var(--border);\n}
+
 
 .header-inner {
   width: min(1180px, 100%);
@@ -260,26 +235,16 @@ body::before {
   border-radius: 999px;
 }
 
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-md);
-  padding: 0.8rem 1rem;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--muted);
-}
+.nav-link {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  border-radius: var(--radius-md);\n  padding: 0.75rem 1rem;\n  font-size: 1rem;\n  font-weight: 600;\n  color: var(--muted);\n}
+
 
 .nav-link:hover {
   color: var(--text);
   background: rgba(148, 163, 184, 0.09);
 }
 
-.nav-link.is-active {
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--accent-2);
-}
+.nav-link.is-active {\n  background: #f3f2f1;\n  color: var(--text);\n}
+
 
 .nav-link svg,
 .nav-link img {
@@ -493,14 +458,8 @@ body::before {
    Cards and surfaces
    -------------------------------------------------------------------------- */
 
-.card {
-  position: relative;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: var(--panel);
-  box-shadow: none;
-  overflow: hidden;
-}
+.card {\n  border-radius: var(--radius-lg);\n  border: 1px solid var(--border);\n  background: #ffffff;\n  box-shadow: none;\n}
+
 
 .card-pad {
   padding: 1.1rem;
@@ -817,21 +776,8 @@ body::before {
    Buttons, forms and controls
    -------------------------------------------------------------------------- */
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.6;
-  padding: 0.85rem 1.4rem;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  cursor: pointer;
-  text-decoration: none;
-}
+.btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  border-radius: var(--radius-md);\n  border: 1px solid var(--border);\n  background: #f3f2f1;\n  color: var(--text);\n  font-weight: 600;\n  font-size: 1rem;\n  line-height: 1.7;\n  padding: 0.8rem 1.4rem;\n  min-height: 3rem;\n}
+
 
 .btn:active {
   transform: translateY(1px);
@@ -851,11 +797,8 @@ body::before {
   transform: none;
 }
 
-.btn-primary {
-  background: var(--accent);
-  color: #ffffff;
-  border-color: var(--accent);
-}
+.btn-primary {\n  background: var(--accent);\n  color: #ffffff;\n  border-color: var(--accent);\n}
+
 
 .btn-primary:hover:not(:disabled) {
   background: linear-gradient(135deg, #7275f4, #5b52ea);
@@ -867,21 +810,15 @@ body::before {
   border-color: rgba(165, 243, 252, 0.4);
 }
 
-.btn-secondary {
-  background: var(--panel);
-  color: var(--text);
-  border-color: var(--border);
-}
+.btn-secondary {\n  background: #f3f2f1;\n  color: var(--text);\n  border-color: var(--border);\n}
+
 
 .btn-secondary:hover:not(:disabled) {
   background: rgba(148, 163, 184, 0.14);
 }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--text);
-  border-color: transparent;
-}
+.btn-ghost {\n  background: transparent;\n  color: var(--text);\n  border-color: transparent;\n}
+
 
 .btn-ghost:hover:not(:disabled) {
   color: var(--text);
@@ -932,13 +869,8 @@ body::before {
   gap: 0.4rem;
 }
 
-.label {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.4rem;
-}
+.label {\n  display: block;\n  font-size: 0.98rem;\n  font-weight: 600;\n  color: var(--text);\n  margin-bottom: 0.4rem;\n}
+
 
 .label .req {
   color: var(--danger);
@@ -2001,36 +1933,15 @@ body::before {
    Bottom navigation
    -------------------------------------------------------------------------- */
 
-.bottom-nav {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  background: rgba(255, 255, 255, 0.98);
-  border-top: 1px solid var(--border);
-  padding: 0.4rem 0 calc(0.4rem + env(safe-area-inset-bottom));
-}
+.bottom-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  display: grid;\n  grid-template-columns: repeat(5, 1fr);\n  background: #ffffff;\n  border-top: 1px solid var(--border);\n}
+
 
 @media (min-width: 768px) {
-  .bottom-nav {
-    display: none;
-  }
-}
+  .bottom-nav {\n  position: fixed;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  display: grid;\n  grid-template-columns: repeat(5, 1fr);\n  background: #ffffff;\n  border-top: 1px solid var(--border);\n}
 
-.bottom-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.6rem 0.4rem;
-}
+
+.bottom-item {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 0.25rem;\n  border: none;\n  background: transparent;\n  color: var(--muted);\n  font-size: 0.9rem;\n  font-weight: 600;\n  padding: 0.7rem 0.3rem;\n}
+
 
 .bottom-item svg,
 .bottom-item img {
@@ -2038,9 +1949,8 @@ body::before {
   height: 1.2rem;
 }
 
-.bottom-item.is-active {
-  color: var(--accent-2);
-}
+.bottom-item.is-active {\n  color: var(--text);\n}
+
 
 .bottom-item.is-active::before {
   content: "";
@@ -2640,21 +2550,12 @@ body::before {
   min-height: 100vh;
 }
 
-.admin-sidebar {
-  position: sticky;
-  top: 0;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid var(--border);
-  background: var(--panel);
-}
+.admin-sidebar {\n  position: sticky;\n  top: 0;\n  height: 100dvh;\n  border-right: 1px solid var(--border);\n  background: #ffffff;\n}
+
 
 @media (min-width: 1024px) {
-  .admin-sidebar {
-    display: flex;
-  }
-}
+  .admin-sidebar {\n  position: sticky;\n  top: 0;\n  height: 100dvh;\n  border-right: 1px solid var(--border);\n  background: #ffffff;\n}
+
 
 .sidebar-brand {
   padding: 0.2rem 0.5rem 1.2rem;
@@ -2678,19 +2579,8 @@ body::before {
   padding: 0.7rem 0.6rem 0.35rem;
 }
 
-.side-item {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  border-radius: var(--radius-md);
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.85rem 1rem;
-  text-align: left;
-}
+.side-item {\n  display: flex;\n  align-items: center;\n  gap: 0.7rem;\n  border-radius: var(--radius-md);\n  border: none;\n  background: transparent;\n  color: var(--muted);\n  font-size: 1rem;\n  font-weight: 600;\n  padding: 0.8rem 1rem;\n}
+
 
 .side-item svg,
 .side-item img {
@@ -2704,10 +2594,8 @@ body::before {
   background: rgba(148, 163, 184, 0.07);
 }
 
-.side-item.is-active {
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--accent-2);
-}
+.side-item.is-active {\n  background: #f3f2f1;\n  color: var(--text);\n}
+
 
 .side-item .side-count {
   margin-left: auto;
@@ -2981,15 +2869,8 @@ body::before {
   pointer-events: none;
 }
 
-.search-wrap .input {
-  width: 100%;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  font-size: 1rem;
-  padding: 0.9rem 1rem;
-}
+.search-wrap .input {\n  width: 100%;\n  border-radius: var(--radius-md);\n  border: 1px solid var(--border);\n  background: #ffffff;\n  color: var(--text);\n  font-size: 1rem;\n  padding: 0.85rem 1rem;\n  min-height: 3rem;\n}
+
 
 .filter-select {
   min-height: 2.3rem;
@@ -3510,9 +3391,4 @@ body::before {
 }
 
 /* Icons8 Fluency artwork is raster; keep it aligned and undistorted. */
-.fluency-icon {
-  display: inline-block;
-  object-fit: contain;
-  vertical-align: -0.2em;
-  flex: none;
-}
+.fluency-icon {\n  display: inline-block;\n  object-fit: contain;\n  vertical-align: -0.2em;\n  flex: none;\n}

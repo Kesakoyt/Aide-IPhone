@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Aide iPhone — Remote assistance</title>
+    <title>Aide iPhone — Assistance à distance</title>
     <meta
       name="description"
       content="Aide iPhone is your direct line to a technician: live diagnostics, support tickets, guided fixes and important alerts."
@@ -29,14 +29,14 @@
   <body class="app-body">
     <noscript>
       <div style="padding: 1rem; border: 1px solid #fb7185; margin: 1rem; border-radius: 12px">
-        Aide iPhone needs JavaScript enabled to connect you with support.
+        Aide iPhone nécessite JavaScript pour vous connecter à l'assistance.
       </div>
     </noscript>
 
-    <!-- Offline state ------------------------------------------------------->
+    <!-- Hors ligne state ------------------------------------------------------->
     <div id="offlineBanner" class="offline-banner hidden" role="status">
       <img src="./icons/fluency/wifi-off.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
-      You are offline — changes will sync when the connection returns.
+      Hors ligne — les modifications seront synchronisées à la reconnexion.
     </div>
 
     <!-- Boot ----------------------------------------------------------------->
@@ -47,13 +47,13 @@
         </div>
         <div>
           <p class="boot-title">Aide iPhone</p>
-          <p class="boot-caption">Connecting your support workspace…</p>
+          <p class="boot-caption">Connexion à l'espace d'assistance…</p>
         </div>
         <div class="spinner" aria-label="Loading"></div>
       </div>
     </div>
 
-    <!-- Authentication ------------------------------------------------------>
+    <!-- Connexion ------------------------------------------------------>
     <div id="authScreen" class="hidden">
       <div class="auth-shell">
         <section class="auth-hero" aria-label="About Aide iPhone">
@@ -63,7 +63,7 @@
             </span>
             <span>
               <span class="brand-name">Aide <em>iPhone</em></span>
-              <span class="brand-sub">Remote assistance</span>
+              <span class="brand-sub">Assistance à distance</span>
             </span>
           </a>
 
@@ -79,8 +79,8 @@
                 <img src="./icons/fluency/activity.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
               </span>
               <div>
-                <h3>Live device context</h3>
-                <p>Battery, GPS, brightness estimate and local time arrive with every request.</p>
+                <h3>Contexte de l'appareil en temps réel</h3>
+                <p>Batterie, GPS, luminosité estimée et heure locale sont envoyés avec chaque demande.</p>
               </div>
             </div>
             <div class="auth-feature">
@@ -88,8 +88,8 @@
                 <img src="./icons/fluency/message-square.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
               </span>
               <div>
-                <h3>One thread per incident</h3>
-                <p>Track pending, in-progress and resolved tickets in real time.</p>
+                <h3>Un fil par incident</h3>
+                <p>Suivez vos tickets en attente, en cours ou résolus en temps réel.</p>
               </div>
             </div>
             <div class="auth-feature">
@@ -97,8 +97,8 @@
                 <img src="./icons/fluency/shield.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
               </span>
               <div>
-                <h3>Private by design</h3>
-                <p>You control diagnostics sharing and can use the app as a guest.</p>
+                <h3>Confidentiel par conception</h3>
+                <p>Vous contrôlez le partage des diagnostics et pouvez utiliser l'application en tant qu'invité.</p>
               </div>
             </div>
           </div>
@@ -111,23 +111,23 @@
             </span>
             <span>
               <span class="brand-name">Aide <em>iPhone</em></span>
-              <span class="brand-sub">Remote assistance</span>
+              <span class="brand-sub">Assistance à distance</span>
             </span>
           </div>
 
           <div class="card auth-card">
-            <div class="auth-tabs" role="tablist" aria-label="Sign in or create account">
+            <div class="auth-tabs" role="tablist" aria-label="Se connecter or create account">
               <button type="button" class="auth-tab is-active" data-auth-mode="login" role="tab" aria-selected="true">
-                Sign in
+                Se connecter
               </button>
               <button type="button" class="auth-tab" data-auth-mode="register" role="tab" aria-selected="false">
-                Create account
+                Créer un compte
               </button>
             </div>
 
             <div class="mt-4">
-              <h2 id="authTitle" class="section-title">Welcome back</h2>
-              <p id="authSubtitle" class="section-sub">Sign in to see your tickets and device status.</p>
+              <h2 id="authTitre" class="section-title">Welcome back</h2>
+              <p id="authSubtitle" class="section-sub">Se connecter to see your tickets and device status.</p>
             </div>
 
             <form id="authForm" class="mt-4 space-y-3" novalidate>
@@ -136,9 +136,9 @@
                 <input id="authName" class="input" type="text" autocomplete="name" placeholder="Jane Doe" />
               </div>
               <div class="field">
-                <label class="label" for="authEmail">Email address</label>
+                <label class="label" for="authE-mail">Adresse e-mail</label>
                 <input
-                  id="authEmail"
+                  id="authE-mail"
                   class="input"
                   type="email"
                   inputmode="email"
@@ -148,9 +148,9 @@
                 />
               </div>
               <div class="field">
-                <label class="label" for="authPassword">Password</label>
+                <label class="label" for="authMot de passe">Mot de passe</label>
                 <input
-                  id="authPassword"
+                  id="authMot de passe"
                   class="input"
                   type="password"
                   autocomplete="current-password"
@@ -160,11 +160,11 @@
                 />
               </div>
               <div id="authError" class="form-error hidden" role="alert"></div>
-              <button id="authSubmit" type="submit" class="btn btn-primary btn-block">Sign in</button>
+              <button id="authSubmit" type="submit" class="btn btn-primary btn-block">Se connecter</button>
             </form>
 
             <div class="mt-2 flex items-center justify-between">
-              <button id="resetPasswordBtn" type="button" class="btn btn-ghost btn-sm">Forgot password?</button>
+              <button id="resetMot de passeBtn" type="button" class="btn btn-ghost btn-sm">Forgot password?</button>
               <span class="text-faint text-[0.65rem]">Secure Firebase sign-in</span>
             </div>
 
@@ -172,7 +172,7 @@
 
             <button id="guestBtn" type="button" class="btn btn-secondary btn-block">
               <img src="./icons/fluency/user.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
-              Continue as guest
+              Continuer en invité
             </button>
             <p class="help-text mt-2 text-center">
               Guest sessions are private but cannot be recovered. Add an email later to keep your history.
@@ -197,18 +197,18 @@
             </span>
             <span class="hidden sm:block">
               <span class="brand-name">Aide <em>iPhone</em></span>
-              <span class="brand-sub">Remote assistance</span>
+              <span class="brand-sub">Assistance à distance</span>
             </span>
           </a>
 
           <nav class="top-tabs" aria-label="Main navigation">
             <button type="button" class="nav-link is-active" data-nav="home">
               <img src="./icons/fluency/home.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-              Home
+              Accueil
             </button>
             <button type="button" class="nav-link" data-nav="support">
               <img src="./icons/fluency/life-buoy.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-              Get help
+              Obtenir de l'aide
             </button>
             <button type="button" class="nav-link" data-nav="guides">
               <img src="./icons/fluency/book-open.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
@@ -216,19 +216,19 @@
             </button>
             <button type="button" class="nav-link" data-nav="alerts">
               <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-              Alerts
+              Alertes
             </button>
           </nav>
 
           <div class="header-actions">
             <span id="netPill" class="net-pill" title="Connection status">
               <span id="netDot" class="status-dot"></span>
-              <span id="netLabel">Online</span>
+              <span id="netLabel">En ligne</span>
             </span>
-            <button id="headerAlertsBtn" type="button" class="icon-btn" data-nav="alerts" aria-label="Alerts">
+            <button id="headerAlertesBtn" type="button" class="icon-btn" data-nav="alerts" aria-label="Alertes">
               <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
             </button>
-            <button id="headerProfileBtn" type="button" class="avatar" data-nav="profile" aria-label="Your profile">
+            <button id="headerProfilBtn" type="button" class="avatar" data-nav="profile" aria-label="Your profile">
               <span id="headerInitials">A</span>
             </button>
           </div>
@@ -236,7 +236,7 @@
       </header>
 
       <main id="appMain">
-        <!-- Home ----------------------------------------------------------->
+        <!-- Accueil ----------------------------------------------------------->
         <section id="view-home" class="view" data-view="home">
           <div class="page">
             <div class="page-heading flex flex-wrap items-end justify-between gap-3">
@@ -275,7 +275,7 @@
                       Connecting…
                     </span>
                   </div>
-                  <h2 class="text-xl font-bold tracking-tight text-white md:text-2xl" id="heroTitle">
+                  <h2 class="text-xl font-bold tracking-tight text-white md:text-2xl" id="heroTitre">
                     We are ready to help.
                   </h2>
                   <p class="mt-2 max-w-xl text-sm leading-6 text-slate-300" id="syncStatusHint">
@@ -294,18 +294,18 @@
                     <div class="metric-icon">
                       <img src="./icons/fluency/battery.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
                     </div>
-                    <span class="metric-label">Battery</span>
-                    <span class="metric-value" id="liveBatteryValue">—</span>
-                    <div class="battery-track"><div class="battery-fill" id="liveBatteryFill" style="width: 0%"></div></div>
-                    <span class="metric-hint" id="liveBatteryHint">Checking…</span>
+                    <span class="metric-label">Batterie</span>
+                    <span class="metric-value" id="liveBatterieValue">—</span>
+                    <div class="battery-track"><div class="battery-fill" id="liveBatterieFill" style="width: 0%"></div></div>
+                    <span class="metric-hint" id="liveBatterieHint">Checking…</span>
                   </div>
                   <div class="metric">
                     <div class="metric-icon">
                       <img src="./icons/fluency/map-pin.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
                     </div>
-                    <span class="metric-label">Location</span>
-                    <span class="metric-value" id="liveLocationValue">—</span>
-                    <span class="metric-hint" id="liveLocationHint">Not shared yet</span>
+                    <span class="metric-label">Localisation</span>
+                    <span class="metric-value" id="liveLocalisationValue">—</span>
+                    <span class="metric-hint" id="liveLocalisationHint">Not shared yet</span>
                   </div>
                   <div class="metric">
                     <div class="metric-icon">
@@ -320,8 +320,8 @@
                       <img src="./icons/fluency/clock.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
                     </div>
                     <span class="metric-label">Local time</span>
-                    <span class="metric-value clock-display" id="liveTimeValue">—</span>
-                    <span class="metric-hint" id="liveTimeHint">—</span>
+                    <span class="metric-value clock-display" id="liveHeureValue">—</span>
+                    <span class="metric-hint" id="liveHeureHint">—</span>
                   </div>
                 </div>
               </div>
@@ -360,7 +360,7 @@
                   <img src="./icons/fluency/smartphone.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
                 </span>
                 <span class="flex-1">
-                  <h3>Install the app</h3>
+                  <h3>Installer the app</h3>
                   <p>Add Aide to your home screen.</p>
                 </span>
               </button>
@@ -391,9 +391,9 @@
                       <span class="metric-hint" id="liveDeviceHint">—</span>
                     </div>
                     <div class="metric">
-                      <span class="metric-label">Timezone</span>
-                      <span class="metric-value" id="liveTimezoneValue">—</span>
-                      <span class="metric-hint" id="liveTimezoneHint">—</span>
+                      <span class="metric-label">Heurezone</span>
+                      <span class="metric-value" id="liveHeurezoneValue">—</span>
+                      <span class="metric-hint" id="liveHeurezoneHint">—</span>
                     </div>
                     <div class="metric">
                       <span class="metric-label">Last sync</span>
@@ -408,7 +408,7 @@
                       <div class="permission-row mt-1.5" id="permissionChips"></div>
                     </div>
                     <label class="switch">
-                      <input type="checkbox" class="js-telemetry-toggle" id="telemetryToggleHome" checked />
+                      <input type="checkbox" class="js-telemetry-toggle" id="telemetryToggleAccueil" checked />
                       <span class="switch-track"></span>
                       <span class="switch-label">Share diagnostics</span>
                     </label>
@@ -425,7 +425,7 @@
                     </h2>
                     <p class="card-caption"><span id="openTicketsCount">0</span> ticket(s) in the last 30 days</p>
                   </div>
-                  <button type="button" class="btn btn-ghost btn-sm" data-nav="support">View all</button>
+                  <button type="button" class="btn btn-ghost btn-sm" data-nav="support">Voir tout</button>
                 </div>
                 <div class="card-body pt-3" id="openTicketsList"></div>
               </div>
@@ -437,9 +437,9 @@
               </span>
               <div class="flex-1">
                 <h3>Keep Aide one tap away</h3>
-                <p>Install the PWA for full-screen support, faster launches and push alerts.</p>
+                <p>Installer the PWA for full-screen support, faster launches and push alerts.</p>
               </div>
-              <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Install</button>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Installer</button>
             </div>
           </div>
         </section>
@@ -459,7 +459,7 @@
             <div class="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
               <form id="ticketForm" class="card card-pad space-y-4" novalidate>
                 <div class="field">
-                  <span class="label">Issue category <span class="req">*</span></span>
+                  <span class="label">Catégorie du problème <span class="req">*</span></span>
                   <div id="categoryGrid" class="radio-cards"></div>
                 </div>
 
@@ -477,12 +477,12 @@
 
                 <div class="grid gap-3 sm:grid-cols-2">
                   <div class="field">
-                    <label class="label" for="ticketPriority">Priority</label>
-                    <select id="ticketPriority" class="select">
-                      <option value="low">Low — a question or minor annoyance</option>
-                      <option value="normal" selected>Normal — I need help soon</option>
-                      <option value="high">High — work or calls are affected</option>
-                      <option value="urgent">Urgent — I am locked out or blocked</option>
+                    <label class="label" for="ticketPriorité">Priorité</label>
+                    <select id="ticketPriorité" class="select">
+                      <option value="low">Faible — a question or minor annoyance</option>
+                      <option value="normal" selected>Normale — I need help soon</option>
+                      <option value="high">Élevée — work or calls are affected</option>
+                      <option value="urgent">Urgente — I am locked out or blocked</option>
                     </select>
                   </div>
                   <div class="field">
@@ -576,7 +576,7 @@
                     Your privacy
                   </h2>
                   <p class="mt-2 text-[0.74rem] leading-5 text-slate-400">
-                    Location and diagnostics are visible only to you and verified support staff. You can switch
+                    Localisation and diagnostics are visible only to you and verified support staff. You can switch
                     sharing off at any time from your profile.
                   </p>
                   <button type="button" class="btn btn-ghost btn-sm mt-2 px-0" data-nav="profile">Manage sharing →</button>
@@ -603,7 +603,7 @@
                 <span class="empty-state-icon">
                   <img src="./icons/fluency/ticket.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
                 </span>
-                <h3>No tickets yet</h3>
+                <h3>Aucun ticket pour l'instant</h3>
                 <p>When you submit a request it will appear here with live status updates.</p>
               </div>
             </section>
@@ -625,7 +625,7 @@
             <div class="card card-pad">
               <div class="search-wrap">
                 <img src="./icons/fluency/search.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-                <input id="guideSearch" class="input" type="search" placeholder="Search guides, e.g. battery, Wi-Fi, storage…" aria-label="Search guides" />
+                <input id="guideSearch" class="input" type="search" placeholder="Rechercher des guides, e.g. battery, Wi-Fi, storage…" aria-label="Rechercher des guides" />
               </div>
               <div id="guideCategories" class="chip-row mt-3"></div>
             </div>
@@ -652,7 +652,7 @@
 
             <div class="section-head mt-8">
               <div>
-                <h2 class="section-title">Frequently asked questions</h2>
+                <h2 class="section-title">Questions fréquentes</h2>
                 <p class="section-sub">Quick answers to the things people ask us most.</p>
               </div>
             </div>
@@ -668,16 +668,16 @@
           </div>
         </section>
 
-        <!-- Alerts --------------------------------------------------------->
+        <!-- Alertes --------------------------------------------------------->
         <section id="view-alerts" class="view hidden" data-view="alerts">
           <div class="page">
             <div class="page-heading flex flex-wrap items-end justify-between gap-3">
               <div>
                 <p class="eyebrow">Notifications</p>
-                <h1 class="page-title">Alerts &amp; announcements</h1>
+                <h1 class="page-title">Alertes &amp; announcements</h1>
                 <p class="page-subtitle">Important messages from the support team. Critical alerts also arrive as push notifications.</p>
               </div>
-              <button type="button" class="btn btn-secondary btn-sm" data-action="acknowledge-all">Acknowledge all</button>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="acknowledge-all">Prendre connaissance all</button>
             </div>
             <div id="alertsList" class="space-y-2"></div>
             <div id="alertsEmpty" class="empty-state hidden">
@@ -690,11 +690,11 @@
           </div>
         </section>
 
-        <!-- Profile -------------------------------------------------------->
+        <!-- Profil -------------------------------------------------------->
         <section id="view-profile" class="view hidden" data-view="profile">
           <div class="page max-w-3xl">
             <div class="page-heading">
-              <p class="eyebrow">Account &amp; settings</p>
+              <p class="eyebrow">Compte &amp; settings</p>
               <h1 class="page-title">Your profile</h1>
               <p class="page-subtitle">Manage your identity, notifications, diagnostics sharing and installed app.</p>
             </div>
@@ -704,21 +704,21 @@
                 <span class="avatar avatar-lg" id="profileAvatar">A</span>
                 <div class="min-w-0 flex-1">
                   <h2 class="profile-name" id="profileName">Guest user</h2>
-                  <p class="profile-email" id="profileEmail">—</p>
+                  <p class="profile-email" id="profileE-mail">—</p>
                   <div class="mt-1.5 flex flex-wrap gap-1.5">
                     <span class="badge badge-brand" id="profileRoleBadge">Guest</span>
                     <span class="badge badge-neutral" id="profileSince">Member since —</span>
                   </div>
                 </div>
-                <button type="button" class="btn btn-ghost btn-sm" data-action="sign-out" aria-label="Sign out">
+                <button type="button" class="btn btn-ghost btn-sm" data-action="sign-out" aria-label="Se déconnecter">
                   <img src="./icons/fluency/log-out.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
-                  Sign out
+                  Se déconnecter
                 </button>
               </div>
               <div id="adminLinkWrap" class="hidden mt-3 rounded-xl border border-indigo-400/25 bg-indigo-500/10 p-3">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <p class="text-[0.76rem] font-semibold text-indigo-100">Administrator account</p>
+                    <p class="text-[0.76rem] font-semibold text-indigo-100">Compte administrateur</p>
                     <p class="text-[0.68rem] text-indigo-200/70">Open the staff dashboard for live telemetry and tickets.</p>
                   </div>
                   <a class="btn btn-primary btn-sm" href="./admin.html">Open admin panel</a>
@@ -741,12 +741,12 @@
                   <input id="upgradeName" class="input" type="text" autocomplete="name" placeholder="Jane Doe" />
                 </div>
                 <div class="field">
-                  <label class="label" for="upgradeEmail">Email address</label>
-                  <input id="upgradeEmail" class="input" type="email" autocomplete="email" placeholder="you@example.com" required />
+                  <label class="label" for="upgradeE-mail">Adresse e-mail</label>
+                  <input id="upgradeE-mail" class="input" type="email" autocomplete="email" placeholder="you@example.com" required />
                 </div>
                 <div class="field">
-                  <label class="label" for="upgradePassword">Password</label>
-                  <input id="upgradePassword" class="input" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required />
+                  <label class="label" for="upgradeMot de passe">Mot de passe</label>
+                  <input id="upgradeMot de passe" class="input" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required />
                 </div>
                 <div id="upgradeError" class="form-error hidden sm:col-span-2" role="alert"></div>
                 <div class="sm:col-span-2 flex flex-wrap items-center justify-between gap-2">
@@ -759,7 +759,7 @@
             <div class="card card-pad mt-4">
               <h2 class="card-title">
                 <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-                Push notifications
+                Notifications push
               </h2>
               <div class="setting-row">
                 <div class="setting-copy">
@@ -796,7 +796,7 @@
                 <div class="setting-copy">
                   <h3>Share diagnostics while the app is open</h3>
                   <p>
-                    Battery, GPS, display estimate, timezone and device details help technicians diagnose faster.
+                    Batterie, GPS, display estimate, timezone and device details help technicians diagnose faster.
                     Turn off to stop telemetry entirely; your ticket will still include a one-time snapshot.
                   </p>
                 </div>
@@ -810,7 +810,7 @@
                 <div class="setting-copy">
                   <h3>Data captured with a ticket</h3>
                   <p>
-                    OS, browser, screen size, battery, GPS (if allowed), local time and timezone. Attachments are
+                    OS, browser, screen size, battery, GPS (if allowed), local time and timezone. Pièces jointes are
                     stored in Firebase Storage and readable only by you and support staff.
                   </p>
                 </div>
@@ -825,31 +825,31 @@
               </h2>
               <div class="setting-row">
                 <div class="setting-copy">
-                  <h3>Install Aide iPhone</h3>
-                  <p id="installStatusText">Add this app to your home screen for a full-screen experience.</p>
+                  <h3>Installer Aide iPhone</h3>
+                  <p id="installStatusText">Ajoutez cette application à votre écran d'accueil pour un affichage plein écran.</p>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Install</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Installer</button>
               </div>
               <div class="setting-row">
                 <div class="setting-copy">
                   <h3>Version &amp; offline cache</h3>
-                  <p>Version <span data-app-version>1.1.0</span> · <span id="swStatus">Service worker starting…</span></p>
+                  <p>Version <span data-app-version>1.1.0</span> · <span id="swStatus">Démarrage du service worker…</span></p>
                 </div>
                 <span class="badge badge-resolved" id="offlineReadyBadge">PWA</span>
               </div>
               <div class="setting-row">
                 <div class="setting-copy">
-                  <h3>Sign out</h3>
-                  <p>You can sign back in at any time. Cached diagnostics stay on this device until cleared.</p>
+                  <h3>Se déconnecter</h3>
+                  <p>Vous pouvez vous reconnecter à tout moment. Les diagnostics en cache restent sur cet appareil jusqu'à leur suppression.</p>
                 </div>
-                <button type="button" class="btn btn-danger btn-sm" data-action="sign-out">Sign out</button>
+                <button type="button" class="btn btn-danger btn-sm" data-action="sign-out">Se déconnecter</button>
               </div>
             </div>
 
             <p class="mt-4 text-center text-[0.65rem] leading-5 text-slate-600">
-              Aide iPhone · Remote assistance PWA · Built with Firebase<br />
-              Telemetry is only used to provide support and is never sold or shared with third parties.<br />
-              Icons by
+              Aide iPhone · Assistance à distance PWA · Built with Firebase<br />
+              Les données de télémétrie ne sont utilisées que pour l'assistance et ne sont ni vendues ni partagées.<br />
+              Icônes par
               <a
                 href="https://icons8.com/icons/set/fluency"
                 target="_blank"
@@ -865,41 +865,41 @@
       <nav class="bottom-nav" aria-label="Main navigation">
         <button type="button" class="bottom-item is-active" data-nav="home">
           <img src="./icons/fluency/home.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-          Home
+          Accueil
         </button>
         <button type="button" class="bottom-item" data-nav="support">
           <img src="./icons/fluency/life-buoy.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-          Get help
+          Obtenir de l'aide
         </button>
         <button type="button" class="bottom-item" data-nav="guides">
           <img src="./icons/fluency/book-open.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
           Guides
         </button>
-        <button type="button" class="bottom-item" data-nav="alerts" id="bottomAlertsBtn">
+        <button type="button" class="bottom-item" data-nav="alerts" id="bottomAlertesBtn">
           <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-          Alerts
+          Alertes
         </button>
         <button type="button" class="bottom-item" data-nav="profile">
           <img src="./icons/fluency/user.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
-          Profile
+          Profil
         </button>
       </nav>
     </div>
 
-    <!-- High-priority alert -->
+    <!-- Élevée-priority alert -->
     <div id="alertOverlay" class="alert-overlay hidden" aria-hidden="true">
       <div class="alert-backdrop" id="alertBackdrop"></div>
-      <div class="alert-sheet" id="alertSheet" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
+      <div class="alert-sheet" id="alertSheet" role="dialog" aria-modal="true" aria-labelledby="alertTitre">
         <button type="button" class="icon-btn alert-sheet-close" id="alertCloseBtn" aria-label="Close alert">
           <img src="./icons/fluency/x.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
         </button>
         <div class="alert-sheet-icon" id="alertIcon"></div>
         <p class="alert-sheet-meta" id="alertMeta">Important alert</p>
-        <h2 id="alertTitle">Alert</h2>
+        <h2 id="alertTitre">Alert</h2>
         <p class="alert-message" id="alertMessage"></p>
         <div class="alert-sheet-actions">
-          <button type="button" class="btn btn-primary btn-block" id="alertAckBtn">Acknowledge</button>
-          <button type="button" class="btn btn-ghost btn-block" id="alertViewAllBtn">View all alerts</button>
+          <button type="button" class="btn btn-primary btn-block" id="alertAckBtn">Prendre connaissance</button>
+          <button type="button" class="btn btn-ghost btn-block" id="alertViewAllBtn">Voir tout alerts</button>
         </div>
       </div>
     </div>
