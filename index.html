@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Aide iPhone — Remote assistance</title>
+    <meta
+      name="description"
+      content="Aide iPhone is your direct line to a technician: live diagnostics, support tickets, guided fixes and important alerts."
+    />
+    <meta name="theme-color" content="#060913" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="application-name" content="Aide iPhone" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Aide" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="./icons/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./tailwind.css" />
+  </head>
+
+  <body class="app-body">
+    <noscript>
+      <div style="padding: 1rem; border: 1px solid #fb7185; margin: 1rem; border-radius: 12px">
+        Aide iPhone needs JavaScript enabled to connect you with support.
+      </div>
+    </noscript>
+
+    <!-- Offline state ------------------------------------------------------->
+    <div id="offlineBanner" class="offline-banner hidden" role="status">
+      <img src="./icons/fluency/wifi-off.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+      You are offline — changes will sync when the connection returns.
+    </div>
+
+    <!-- Boot ----------------------------------------------------------------->
+    <div id="bootScreen" class="boot-screen" aria-hidden="true">
+      <div class="boot-inner">
+        <div class="boot-logo">
+          <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+        </div>
+        <div>
+          <p class="boot-title">Aide iPhone</p>
+          <p class="boot-caption">Connecting your support workspace…</p>
+        </div>
+        <div class="spinner" aria-label="Loading"></div>
+      </div>
+    </div>
+
+    <!-- Authentication ------------------------------------------------------>
+    <div id="authScreen" class="hidden">
+      <div class="auth-shell">
+        <section class="auth-hero" aria-label="About Aide iPhone">
+          <a class="brand" href="./" aria-label="Aide iPhone home">
+            <span class="brand-mark">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+            <span>
+              <span class="brand-name">Aide <em>iPhone</em></span>
+              <span class="brand-sub">Remote assistance</span>
+            </span>
+          </a>
+
+          <h1>Real help,<br /><span>without the runaround.</span></h1>
+          <p>
+            Connect your iPhone to a technician, share the diagnostics that matter, and follow every fix from
+            request to resolution. No app store download required.
+          </p>
+
+          <div class="auth-features">
+            <div class="auth-feature">
+              <span class="auth-feature-icon">
+                <img src="./icons/fluency/activity.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <div>
+                <h3>Live device context</h3>
+                <p>Battery, GPS, brightness estimate and local time arrive with every request.</p>
+              </div>
+            </div>
+            <div class="auth-feature">
+              <span class="auth-feature-icon">
+                <img src="./icons/fluency/message-square.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <div>
+                <h3>One thread per incident</h3>
+                <p>Track pending, in-progress and resolved tickets in real time.</p>
+              </div>
+            </div>
+            <div class="auth-feature">
+              <span class="auth-feature-icon">
+                <img src="./icons/fluency/shield.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <div>
+                <h3>Private by design</h3>
+                <p>You control diagnostics sharing and can use the app as a guest.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="auth-card-wrap">
+          <div class="brand mb-5 flex items-center justify-center" style="justify-content: center">
+            <span class="brand-mark">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+            <span>
+              <span class="brand-name">Aide <em>iPhone</em></span>
+              <span class="brand-sub">Remote assistance</span>
+            </span>
+          </div>
+
+          <div class="card auth-card">
+            <div class="auth-tabs" role="tablist" aria-label="Sign in or create account">
+              <button type="button" class="auth-tab is-active" data-auth-mode="login" role="tab" aria-selected="true">
+                Sign in
+              </button>
+              <button type="button" class="auth-tab" data-auth-mode="register" role="tab" aria-selected="false">
+                Create account
+              </button>
+            </div>
+
+            <div class="mt-4">
+              <h2 id="authTitle" class="section-title">Welcome back</h2>
+              <p id="authSubtitle" class="section-sub">Sign in to see your tickets and device status.</p>
+            </div>
+
+            <form id="authForm" class="mt-4 space-y-3" novalidate>
+              <div id="authNameField" class="field hidden">
+                <label class="label" for="authName">Full name</label>
+                <input id="authName" class="input" type="text" autocomplete="name" placeholder="Jane Doe" />
+              </div>
+              <div class="field">
+                <label class="label" for="authEmail">Email address</label>
+                <input
+                  id="authEmail"
+                  class="input"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label class="label" for="authPassword">Password</label>
+                <input
+                  id="authPassword"
+                  class="input"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="At least 6 characters"
+                  minlength="6"
+                  required
+                />
+              </div>
+              <div id="authError" class="form-error hidden" role="alert"></div>
+              <button id="authSubmit" type="submit" class="btn btn-primary btn-block">Sign in</button>
+            </form>
+
+            <div class="mt-2 flex items-center justify-between">
+              <button id="resetPasswordBtn" type="button" class="btn btn-ghost btn-sm">Forgot password?</button>
+              <span class="text-faint text-[0.65rem]">Secure Firebase sign-in</span>
+            </div>
+
+            <div class="auth-divider">or</div>
+
+            <button id="guestBtn" type="button" class="btn btn-secondary btn-block">
+              <img src="./icons/fluency/user.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Continue as guest
+            </button>
+            <p class="help-text mt-2 text-center">
+              Guest sessions are private but cannot be recovered. Add an email later to keep your history.
+            </p>
+
+            <div class="auth-footnote">
+              <span>Need staff tools? <a href="./admin.html">Admin panel</a></span>
+              <span>v<span data-app-version>1.1.0</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client application -------------------------------------------------->
+    <div id="appShell" class="hidden">
+      <header class="app-header">
+        <div class="header-inner">
+          <a class="brand" href="./" aria-label="Aide iPhone home">
+            <span class="brand-mark">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+            <span class="hidden sm:block">
+              <span class="brand-name">Aide <em>iPhone</em></span>
+              <span class="brand-sub">Remote assistance</span>
+            </span>
+          </a>
+
+          <nav class="top-tabs" aria-label="Main navigation">
+            <button type="button" class="nav-link is-active" data-nav="home">
+              <img src="./icons/fluency/home.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Home
+            </button>
+            <button type="button" class="nav-link" data-nav="support">
+              <img src="./icons/fluency/life-buoy.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Get help
+            </button>
+            <button type="button" class="nav-link" data-nav="guides">
+              <img src="./icons/fluency/book-open.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Guides
+            </button>
+            <button type="button" class="nav-link" data-nav="alerts">
+              <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Alerts
+            </button>
+          </nav>
+
+          <div class="header-actions">
+            <span id="netPill" class="net-pill" title="Connection status">
+              <span id="netDot" class="status-dot"></span>
+              <span id="netLabel">Online</span>
+            </span>
+            <button id="headerAlertsBtn" type="button" class="icon-btn" data-nav="alerts" aria-label="Alerts">
+              <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </button>
+            <button id="headerProfileBtn" type="button" class="avatar" data-nav="profile" aria-label="Your profile">
+              <span id="headerInitials">A</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main id="appMain">
+        <!-- Home ----------------------------------------------------------->
+        <section id="view-home" class="view" data-view="home">
+          <div class="page">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow" id="homeDate">Today</p>
+                <h1 class="page-title" id="homeGreeting">Welcome back</h1>
+                <p class="page-subtitle">
+                  Your support workspace is ready. Diagnostics sync automatically while the app is open.
+                </p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="refresh-telemetry">
+                <img src="./icons/fluency/refresh.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                Refresh
+              </button>
+            </div>
+
+            <div id="homeAlertBanner" class="mb-4 hidden"></div>
+
+            <div id="homePushBanner" class="install-banner mb-4 hidden">
+              <span class="quick-action-icon cyan flex-none">
+                <img src="./icons/fluency/bell.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <div class="flex-1">
+                <h3>Turn on push notifications</h3>
+                <p>Get ticket updates and urgent technical alerts even when the app is closed.</p>
+              </div>
+              <button type="button" class="btn btn-cyan btn-sm" data-action="enable-push">Enable</button>
+            </div>
+
+            <div class="hero-panel card-pad">
+              <div class="relative z-[1] grid gap-5 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+                <div>
+                  <div class="mb-3 flex items-center gap-2">
+                    <span class="status-dot" id="heroStatusDot"></span>
+                    <span class="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-indigo-200" id="syncStatusText">
+                      Connecting…
+                    </span>
+                  </div>
+                  <h2 class="text-xl font-bold tracking-tight text-white md:text-2xl" id="heroTitle">
+                    We are ready to help.
+                  </h2>
+                  <p class="mt-2 max-w-xl text-sm leading-6 text-slate-300" id="syncStatusHint">
+                    Live diagnostics keep a technician one step ahead of your issue.
+                  </p>
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-primary" data-nav="support">
+                      <img src="./icons/fluency/message-square.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                      Request help
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-nav="guides">Browse guides</button>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="metric">
+                    <div class="metric-icon">
+                      <img src="./icons/fluency/battery.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    </div>
+                    <span class="metric-label">Battery</span>
+                    <span class="metric-value" id="liveBatteryValue">—</span>
+                    <div class="battery-track"><div class="battery-fill" id="liveBatteryFill" style="width: 0%"></div></div>
+                    <span class="metric-hint" id="liveBatteryHint">Checking…</span>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-icon">
+                      <img src="./icons/fluency/map-pin.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    </div>
+                    <span class="metric-label">Location</span>
+                    <span class="metric-value" id="liveLocationValue">—</span>
+                    <span class="metric-hint" id="liveLocationHint">Not shared yet</span>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-icon">
+                      <img src="./icons/fluency/sun.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    </div>
+                    <span class="metric-label">Display</span>
+                    <span class="metric-value" id="liveLightValue">—</span>
+                    <span class="metric-hint" id="liveLightHint">Estimated</span>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-icon">
+                      <img src="./icons/fluency/clock.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    </div>
+                    <span class="metric-label">Local time</span>
+                    <span class="metric-value clock-display" id="liveTimeValue">—</span>
+                    <span class="metric-hint" id="liveTimeHint">—</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <button type="button" class="quick-action" data-nav="support">
+                <span class="quick-action-icon">
+                  <img src="./icons/fluency/message-square.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <span class="flex-1">
+                  <h3>New support request</h3>
+                  <p>Attach diagnostics and open a ticket.</p>
+                </span>
+              </button>
+              <button type="button" class="quick-action" data-nav="guides">
+                <span class="quick-action-icon cyan">
+                  <img src="./icons/fluency/book-open.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <span class="flex-1">
+                  <h3>Fix it yourself</h3>
+                  <p>Step-by-step guides and FAQs.</p>
+                </span>
+              </button>
+              <button type="button" class="quick-action" data-action="enable-push">
+                <span class="quick-action-icon green">
+                  <img src="./icons/fluency/bell.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <span class="flex-1">
+                  <h3>Notifications</h3>
+                  <p id="homePushHint">Enable important alerts.</p>
+                </span>
+              </button>
+              <button type="button" class="quick-action" data-action="install-app">
+                <span class="quick-action-icon amber">
+                  <img src="./icons/fluency/smartphone.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <span class="flex-1">
+                  <h3>Install the app</h3>
+                  <p>Add Aide to your home screen.</p>
+                </span>
+              </button>
+            </div>
+
+            <div class="mt-4 grid gap-4 lg:grid-cols-3">
+              <div class="card lg:col-span-2">
+                <div class="card-head">
+                  <div>
+                    <h2 class="card-title">
+                      <img src="./icons/fluency/activity.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                      Device diagnostics
+                    </h2>
+                    <p class="card-caption">Shared with your technician when you open a ticket.</p>
+                  </div>
+                  <span class="badge badge-brand" id="diagnosticsBadge">Live</span>
+                </div>
+                <div class="card-body">
+                  <div class="metric-grid">
+                    <div class="metric">
+                      <span class="metric-label">Network</span>
+                      <span class="metric-value" id="liveNetworkValue">—</span>
+                      <span class="metric-hint" id="liveNetworkHint">—</span>
+                    </div>
+                    <div class="metric">
+                      <span class="metric-label">Device</span>
+                      <span class="metric-value" id="liveDeviceValue">—</span>
+                      <span class="metric-hint" id="liveDeviceHint">—</span>
+                    </div>
+                    <div class="metric">
+                      <span class="metric-label">Timezone</span>
+                      <span class="metric-value" id="liveTimezoneValue">—</span>
+                      <span class="metric-hint" id="liveTimezoneHint">—</span>
+                    </div>
+                    <div class="metric">
+                      <span class="metric-label">Last sync</span>
+                      <span class="metric-value" id="lastSyncValue">—</span>
+                      <span class="metric-hint" id="lastSyncHint">Automatic</span>
+                    </div>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="flex items-center justify-between gap-3 flex-wrap">
+                    <div>
+                      <p class="text-[0.7rem] font-semibold text-slate-300">Permissions</p>
+                      <div class="permission-row mt-1.5" id="permissionChips"></div>
+                    </div>
+                    <label class="switch">
+                      <input type="checkbox" class="js-telemetry-toggle" id="telemetryToggleHome" checked />
+                      <span class="switch-track"></span>
+                      <span class="switch-label">Share diagnostics</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-head">
+                  <div>
+                    <h2 class="card-title">
+                      <img src="./icons/fluency/ticket.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                      Your tickets
+                    </h2>
+                    <p class="card-caption"><span id="openTicketsCount">0</span> ticket(s) in the last 30 days</p>
+                  </div>
+                  <button type="button" class="btn btn-ghost btn-sm" data-nav="support">View all</button>
+                </div>
+                <div class="card-body pt-3" id="openTicketsList"></div>
+              </div>
+            </div>
+
+            <div id="installBanner" class="install-banner mt-4 hidden">
+              <span class="quick-action-icon cyan flex-none">
+                <img src="./icons/fluency/smartphone.png" class="h-5 w-5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <div class="flex-1">
+                <h3>Keep Aide one tap away</h3>
+                <p>Install the PWA for full-screen support, faster launches and push alerts.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Install</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Support -------------------------------------------------------->
+        <section id="view-support" class="view hidden" data-view="support">
+          <div class="page">
+            <div class="page-heading">
+              <p class="eyebrow">Support center</p>
+              <h1 class="page-title">Tell us what is happening</h1>
+              <p class="page-subtitle">
+                The more context we have, the faster a technician can help. Diagnostics are captured at the moment
+                you submit the request.
+              </p>
+            </div>
+
+            <div class="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+              <form id="ticketForm" class="card card-pad space-y-4" novalidate>
+                <div class="field">
+                  <span class="label">Issue category <span class="req">*</span></span>
+                  <div id="categoryGrid" class="radio-cards"></div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="ticketSubject">Short summary <span class="req">*</span></label>
+                  <input
+                    id="ticketSubject"
+                    class="input"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Example: iPhone will not join my home Wi-Fi"
+                    required
+                  />
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <div class="field">
+                    <label class="label" for="ticketPriority">Priority</label>
+                    <select id="ticketPriority" class="select">
+                      <option value="low">Low — a question or minor annoyance</option>
+                      <option value="normal" selected>Normal — I need help soon</option>
+                      <option value="high">High — work or calls are affected</option>
+                      <option value="urgent">Urgent — I am locked out or blocked</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <span class="label">Contact method</span>
+                    <div class="input flex items-center justify-between gap-2" style="cursor: default">
+                      <span class="text-slate-400">In-app updates</span>
+                      <span class="badge badge-neutral">Recommended</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="ticketDescription">Describe the issue <span class="req">*</span></label>
+                  <textarea
+                    id="ticketDescription"
+                    class="textarea"
+                    rows="6"
+                    maxlength="4000"
+                    placeholder="What did you try? When did it start? What did you expect to happen?"
+                    required
+                  ></textarea>
+                  <span class="help-text"><span id="descriptionCount">0</span> / 4000 characters</span>
+                </div>
+
+                <div class="field">
+                  <span class="label">Screenshot or file (optional)</span>
+                  <label class="dropzone" id="ticketDropzone" for="ticketFiles">
+                    <img src="./icons/fluency/camera.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    <p><strong>Tap to attach</strong> or drag a screenshot here</p>
+                    <p class="mt-1 text-[0.65rem]">Up to 3 files · images, PDF or text · 8 MB each</p>
+                  </label>
+                  <input
+                    id="ticketFiles"
+                    type="file"
+                    class="hidden"
+                    multiple
+                    accept="image/png,image/jpeg,image/webp,image/heic,image/heif,application/pdf,text/plain"
+                  />
+                  <div id="ticketFileList" class="attachment-list"></div>
+                </div>
+
+                <div class="rounded-xl border border-slate-700/50 bg-slate-900/40 p-3">
+                  <div class="flex items-start gap-2">
+                    <img src="./icons/fluency/activity.png" class="mt-0.5 h-4 w-4 flex-none text-indigo-300 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    <div class="min-w-0 flex-1">
+                      <p class="text-[0.72rem] font-semibold text-slate-200">Technical context will be attached</p>
+                      <p class="mt-0.5 text-[0.68rem] leading-5 text-slate-400">
+                        OS and browser, battery state, GPS position (if allowed), screen/display estimate, local time
+                        and timezone. Nothing is shared while diagnostics are turned off.
+                      </p>
+                      <div id="ticketContextPreview" class="permission-row mt-2"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="ticketFormError" class="form-error hidden" role="alert"></div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="help-text">We usually reply within one business day.</span>
+                  <button id="ticketSubmitBtn" type="submit" class="btn btn-primary">
+                    <img src="./icons/fluency/send.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    Submit request
+                  </button>
+                </div>
+              </form>
+
+              <aside class="space-y-4">
+                <div class="card card-pad">
+                  <h2 class="card-title">
+                    <img src="./icons/fluency/info.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    What happens next
+                  </h2>
+                  <ol class="mt-3 space-y-3">
+                    <li class="flex gap-2.5">
+                      <span class="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-indigo-400/30 bg-indigo-500/10 text-[0.65rem] font-bold text-indigo-200">1</span>
+                      <p class="text-[0.75rem] leading-5 text-slate-400"><strong class="text-slate-200">We triage it.</strong> Your ticket lands in the technician queue with live device context.</p>
+                    </li>
+                    <li class="flex gap-2.5">
+                      <span class="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-indigo-400/30 bg-indigo-500/10 text-[0.65rem] font-bold text-indigo-200">2</span>
+                      <p class="text-[0.75rem] leading-5 text-slate-400"><strong class="text-slate-200">We investigate.</strong> Status changes to in progress. You may receive a message or a push alert.</p>
+                    </li>
+                    <li class="flex gap-2.5">
+                      <span class="flex h-6 w-6 flex-none items-center justify-center rounded-full border border-indigo-400/30 bg-indigo-500/10 text-[0.65rem] font-bold text-indigo-200">3</span>
+                      <p class="text-[0.75rem] leading-5 text-slate-400"><strong class="text-slate-200">You get a resolution.</strong> The fix stays in your history so you can find it again.</p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="card card-pad">
+                  <h2 class="card-title">
+                    <img src="./icons/fluency/shield.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                    Your privacy
+                  </h2>
+                  <p class="mt-2 text-[0.74rem] leading-5 text-slate-400">
+                    Location and diagnostics are visible only to you and verified support staff. You can switch
+                    sharing off at any time from your profile.
+                  </p>
+                  <button type="button" class="btn btn-ghost btn-sm mt-2 px-0" data-nav="profile">Manage sharing →</button>
+                </div>
+              </aside>
+            </div>
+
+            <section class="mt-8" id="ticketListSection">
+              <div class="section-head flex-wrap">
+                <div>
+                  <h2 class="section-title">Your support requests</h2>
+                  <p class="section-sub">Updates appear here in real time — no refresh needed.</p>
+                </div>
+                <div class="segmented" role="tablist" aria-label="Filter tickets">
+                  <button type="button" class="segment is-active" data-ticket-filter="all">All</button>
+                  <button type="button" class="segment" data-ticket-filter="open">Open</button>
+                  <button type="button" class="segment" data-ticket-filter="resolved">Resolved</button>
+                </div>
+              </div>
+              <div id="ticketList" class="grid gap-2">
+                <div class="loading-line"><span class="spinner"></span> Loading your tickets…</div>
+              </div>
+              <div id="ticketEmpty" class="empty-state hidden">
+                <span class="empty-state-icon">
+                  <img src="./icons/fluency/ticket.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <h3>No tickets yet</h3>
+                <p>When you submit a request it will appear here with live status updates.</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Guides --------------------------------------------------------->
+        <section id="view-guides" class="view hidden" data-view="guides">
+          <div class="page">
+            <div class="page-heading">
+              <p class="eyebrow">Tutorials &amp; guides</p>
+              <h1 class="page-title">Learn it, fix it, move on</h1>
+              <p class="page-subtitle">
+                Practical, step-by-step iPhone guides written for real people. Search below or open a video
+                walkthrough from Apple Support.
+              </p>
+            </div>
+
+            <div class="card card-pad">
+              <div class="search-wrap">
+                <img src="./icons/fluency/search.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                <input id="guideSearch" class="input" type="search" placeholder="Search guides, e.g. battery, Wi-Fi, storage…" aria-label="Search guides" />
+              </div>
+              <div id="guideCategories" class="chip-row mt-3"></div>
+            </div>
+
+            <h2 class="section-title mt-6 mb-3">Step-by-step guides</h2>
+            <div id="guideGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+            <div id="guideEmpty" class="empty-state hidden">
+              <span class="empty-state-icon">
+                <img src="./icons/fluency/search.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <h3>No matching guides</h3>
+              <p>Try a broader search, or open a support request and a technician will help directly.</p>
+              <button type="button" class="btn btn-secondary btn-sm mt-3" data-nav="support">Request help</button>
+            </div>
+
+            <div class="section-head mt-8">
+              <div>
+                <h2 class="section-title">Video walkthroughs</h2>
+                <p class="section-sub">Official Apple Support videos. Tap to play.</p>
+              </div>
+              <span class="badge badge-neutral">3 videos</span>
+            </div>
+            <div id="videoGrid" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"></div>
+
+            <div class="section-head mt-8">
+              <div>
+                <h2 class="section-title">Frequently asked questions</h2>
+                <p class="section-sub">Quick answers to the things people ask us most.</p>
+              </div>
+            </div>
+            <div id="faqList" class="space-y-2"></div>
+
+            <div class="card card-pad mt-6 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 class="section-title">Still stuck?</h2>
+                <p class="section-sub">A real technician can look at your device context and guide you.</p>
+              </div>
+              <button type="button" class="btn btn-primary" data-nav="support">Open a support request</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Alerts --------------------------------------------------------->
+        <section id="view-alerts" class="view hidden" data-view="alerts">
+          <div class="page">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Notifications</p>
+                <h1 class="page-title">Alerts &amp; announcements</h1>
+                <p class="page-subtitle">Important messages from the support team. Critical alerts also arrive as push notifications.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-action="acknowledge-all">Acknowledge all</button>
+            </div>
+            <div id="alertsList" class="space-y-2"></div>
+            <div id="alertsEmpty" class="empty-state hidden">
+              <span class="empty-state-icon">
+                <img src="./icons/fluency/bell.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              </span>
+              <h3>You are all caught up</h3>
+              <p>There are no active alerts for your account right now.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Profile -------------------------------------------------------->
+        <section id="view-profile" class="view hidden" data-view="profile">
+          <div class="page max-w-3xl">
+            <div class="page-heading">
+              <p class="eyebrow">Account &amp; settings</p>
+              <h1 class="page-title">Your profile</h1>
+              <p class="page-subtitle">Manage your identity, notifications, diagnostics sharing and installed app.</p>
+            </div>
+
+            <div class="card card-pad">
+              <div class="profile-header">
+                <span class="avatar avatar-lg" id="profileAvatar">A</span>
+                <div class="min-w-0 flex-1">
+                  <h2 class="profile-name" id="profileName">Guest user</h2>
+                  <p class="profile-email" id="profileEmail">—</p>
+                  <div class="mt-1.5 flex flex-wrap gap-1.5">
+                    <span class="badge badge-brand" id="profileRoleBadge">Guest</span>
+                    <span class="badge badge-neutral" id="profileSince">Member since —</span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" data-action="sign-out" aria-label="Sign out">
+                  <img src="./icons/fluency/log-out.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Sign out
+                </button>
+              </div>
+              <div id="adminLinkWrap" class="hidden mt-3 rounded-xl border border-indigo-400/25 bg-indigo-500/10 p-3">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p class="text-[0.76rem] font-semibold text-indigo-100">Administrator account</p>
+                    <p class="text-[0.68rem] text-indigo-200/70">Open the staff dashboard for live telemetry and tickets.</p>
+                  </div>
+                  <a class="btn btn-primary btn-sm" href="./admin.html">Open admin panel</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="guestUpgradeCard" class="card card-pad mt-4 hidden">
+              <h2 class="card-title">
+                <img src="./icons/fluency/shield.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                Keep your history
+              </h2>
+              <p class="card-caption">
+                You are using a guest session on this device. Add an email and password to recover your tickets and
+                profile on another device.
+              </p>
+              <form id="upgradeForm" class="mt-3 grid gap-3 sm:grid-cols-2" novalidate>
+                <div class="field sm:col-span-2">
+                  <label class="label" for="upgradeName">Full name</label>
+                  <input id="upgradeName" class="input" type="text" autocomplete="name" placeholder="Jane Doe" />
+                </div>
+                <div class="field">
+                  <label class="label" for="upgradeEmail">Email address</label>
+                  <input id="upgradeEmail" class="input" type="email" autocomplete="email" placeholder="you@example.com" required />
+                </div>
+                <div class="field">
+                  <label class="label" for="upgradePassword">Password</label>
+                  <input id="upgradePassword" class="input" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required />
+                </div>
+                <div id="upgradeError" class="form-error hidden sm:col-span-2" role="alert"></div>
+                <div class="sm:col-span-2 flex flex-wrap items-center justify-between gap-2">
+                  <span class="help-text">Your guest data stays with the same account.</span>
+                  <button id="upgradeBtn" type="submit" class="btn btn-primary">Add email &amp; password</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <h2 class="card-title">
+                <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                Push notifications
+              </h2>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Notification permission</h3>
+                  <p id="pushStatusText">Checking your browser permission…</p>
+                </div>
+                <span class="badge badge-neutral js-push-status" id="pushStatusBadge">Checking</span>
+              </div>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Enable alerts on this device</h3>
+                  <p>Ticket updates, technician messages and urgent broadcast alerts.</p>
+                </div>
+                <div class="flex gap-2">
+                  <button type="button" class="btn btn-secondary btn-sm" data-action="test-push">Test</button>
+                  <button type="button" class="btn btn-primary btn-sm" data-action="enable-push">Enable</button>
+                </div>
+              </div>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Push delivery service</h3>
+                  <p id="pushConfigStatus">Checking Firebase messaging configuration…</p>
+                </div>
+                <span class="badge badge-neutral" id="pushConfigBadge">—</span>
+              </div>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <h2 class="card-title">
+                <img src="./icons/fluency/activity.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                Diagnostics &amp; privacy
+              </h2>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Share diagnostics while the app is open</h3>
+                  <p>
+                    Battery, GPS, display estimate, timezone and device details help technicians diagnose faster.
+                    Turn off to stop telemetry entirely; your ticket will still include a one-time snapshot.
+                  </p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" class="js-telemetry-toggle" checked />
+                  <span class="switch-track"></span>
+                  <span class="switch-label sr-only">Share diagnostics</span>
+                </label>
+              </div>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Data captured with a ticket</h3>
+                  <p>
+                    OS, browser, screen size, battery, GPS (if allowed), local time and timezone. Attachments are
+                    stored in Firebase Storage and readable only by you and support staff.
+                  </p>
+                </div>
+                <button type="button" class="btn btn-ghost btn-sm" data-action="refresh-telemetry">Refresh now</button>
+              </div>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <h2 class="card-title">
+                <img src="./icons/fluency/smartphone.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                App
+              </h2>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Install Aide iPhone</h3>
+                  <p id="installStatusText">Add this app to your home screen for a full-screen experience.</p>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" data-action="install-app">Install</button>
+              </div>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Version &amp; offline cache</h3>
+                  <p>Version <span data-app-version>1.1.0</span> · <span id="swStatus">Service worker starting…</span></p>
+                </div>
+                <span class="badge badge-resolved" id="offlineReadyBadge">PWA</span>
+              </div>
+              <div class="setting-row">
+                <div class="setting-copy">
+                  <h3>Sign out</h3>
+                  <p>You can sign back in at any time. Cached diagnostics stay on this device until cleared.</p>
+                </div>
+                <button type="button" class="btn btn-danger btn-sm" data-action="sign-out">Sign out</button>
+              </div>
+            </div>
+
+            <p class="mt-4 text-center text-[0.65rem] leading-5 text-slate-600">
+              Aide iPhone · Remote assistance PWA · Built with Firebase<br />
+              Telemetry is only used to provide support and is never sold or shared with third parties.<br />
+              Icons by
+              <a
+                href="https://icons8.com/icons/set/fluency"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="color: inherit; text-decoration: underline"
+                >Icons8</a
+              >
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Main navigation">
+        <button type="button" class="bottom-item is-active" data-nav="home">
+          <img src="./icons/fluency/home.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          Home
+        </button>
+        <button type="button" class="bottom-item" data-nav="support">
+          <img src="./icons/fluency/life-buoy.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          Get help
+        </button>
+        <button type="button" class="bottom-item" data-nav="guides">
+          <img src="./icons/fluency/book-open.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          Guides
+        </button>
+        <button type="button" class="bottom-item" data-nav="alerts" id="bottomAlertsBtn">
+          <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          Alerts
+        </button>
+        <button type="button" class="bottom-item" data-nav="profile">
+          <img src="./icons/fluency/user.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          Profile
+        </button>
+      </nav>
+    </div>
+
+    <!-- High-priority alert -->
+    <div id="alertOverlay" class="alert-overlay hidden" aria-hidden="true">
+      <div class="alert-backdrop" id="alertBackdrop"></div>
+      <div class="alert-sheet" id="alertSheet" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
+        <button type="button" class="icon-btn alert-sheet-close" id="alertCloseBtn" aria-label="Close alert">
+          <img src="./icons/fluency/x.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+        </button>
+        <div class="alert-sheet-icon" id="alertIcon"></div>
+        <p class="alert-sheet-meta" id="alertMeta">Important alert</p>
+        <h2 id="alertTitle">Alert</h2>
+        <p class="alert-message" id="alertMessage"></p>
+        <div class="alert-sheet-actions">
+          <button type="button" class="btn btn-primary btn-block" id="alertAckBtn">Acknowledge</button>
+          <button type="button" class="btn btn-ghost btn-block" id="alertViewAllBtn">View all alerts</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalRoot"></div>
+    <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

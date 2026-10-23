@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Aide iPhone — Administration</title>
+    <meta name="description" content="Staff operations console for Aide iPhone: live telemetry, support tickets, interventions, broadcasts and exports." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#060913" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="application-name" content="Aide iPhone Admin" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Aide Admin" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="./icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="./icons/favicon-48.png" sizes="48x48" type="image/png" />
+    <link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./tailwind.css" />
+  </head>
+
+  <body class="app-body admin-body">
+    <noscript>
+      <div style="padding: 1rem; border: 1px solid #fb7185; margin: 1rem; border-radius: 12px">
+        The Aide iPhone administration console needs JavaScript enabled.
+      </div>
+    </noscript>
+
+    <!-- Boot ----------------------------------------------------------------->
+    <div id="adminBootScreen" class="boot-screen" aria-hidden="true">
+      <div class="boot-inner">
+        <div class="boot-logo">
+          <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+        </div>
+        <div>
+          <p class="boot-title">Aide Administration</p>
+          <p class="boot-caption" id="adminBootCaption">Verifying staff access…</p>
+        </div>
+        <div class="spinner" aria-label="Loading"></div>
+      </div>
+    </div>
+
+    <!-- Staff sign-in -------------------------------------------------------->
+    <div id="adminAuthScreen" class="hidden">
+      <div class="admin-login-shell">
+        <div class="w-full" style="max-width: 26rem">
+          <div class="brand mb-5" style="justify-content: center">
+            <span class="brand-mark">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+            <span>
+              <span class="brand-name">Aide <em>iPhone</em></span>
+              <span class="brand-sub">Staff console</span>
+            </span>
+          </div>
+
+          <div class="card admin-login-card">
+            <span class="staff-badge">
+              <img src="./icons/fluency/lock.png" class="h-3 w-3 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Administrators only
+            </span>
+            <h1 class="mt-3 text-xl font-bold tracking-tight text-slate-100">Operations sign-in</h1>
+            <p class="section-sub">Use the staff account that has been granted the <strong class="text-slate-300">admin</strong> role.</p>
+
+            <div id="adminAuthError" class="form-error mt-4 hidden" role="alert"></div>
+
+            <form id="adminLoginForm" class="mt-4 space-y-3" novalidate>
+              <div class="field">
+                <label class="label" for="adminEmail">Staff email</label>
+                <input
+                  id="adminEmail"
+                  class="input"
+                  type="email"
+                  inputmode="email"
+                  autocomplete="username"
+                  placeholder="admin@example.com"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label class="label" for="adminPassword">Password</label>
+                <input
+                  id="adminPassword"
+                  class="input"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Your password"
+                  required
+                />
+              </div>
+              <button id="adminLoginBtn" type="submit" class="btn btn-primary btn-block">Sign in to console</button>
+            </form>
+
+            <div class="auth-footnote mt-4">
+              <a href="./index.html">← Client application</a>
+              <span>v<span data-app-version>1.1.0</span> · Secure Firebase sign-in</span>
+            </div>
+          </div>
+
+          <p class="mt-4 text-center text-[0.65rem] leading-5 text-slate-600">
+            Access is audited. If you believe you should have administrator access, contact the workspace owner.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Console ------------------------------------------------------------->
+    <div id="adminShell" class="admin-shell hidden">
+      <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+          <a class="brand" href="./admin.html" aria-label="Aide iPhone administration home">
+            <span class="brand-mark">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+            <span>
+              <span class="brand-name">Aide <em>iPhone</em></span>
+              <span class="brand-sub">Staff console</span>
+            </span>
+          </a>
+        </div>
+
+        <nav class="side-nav" aria-label="Administration sections">
+          <p class="side-nav-label">Operations</p>
+          <button type="button" class="side-item is-active" data-admin-nav="dashboard">
+            <img src="./icons/fluency/dashboard.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Dashboard</span>
+          </button>
+          <button type="button" class="side-item" data-admin-nav="tickets">
+            <img src="./icons/fluency/ticket.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Tickets</span>
+            <span class="side-count" id="navTicketCount">0</span>
+          </button>
+          <button type="button" class="side-item" data-admin-nav="interventions">
+            <img src="./icons/fluency/tool.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Interventions</span>
+          </button>
+
+          <p class="side-nav-label">Communication</p>
+          <button type="button" class="side-item" data-admin-nav="alerts">
+            <img src="./icons/fluency/megaphone.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Broadcasts</span>
+            <span class="side-count" id="navAlertCount">0</span>
+          </button>
+          <button type="button" class="side-item" data-admin-nav="exports">
+            <img src="./icons/fluency/download.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Exports</span>
+          </button>
+
+          <p class="side-nav-label">Workspace</p>
+          <a class="side-item" href="./index.html" style="text-decoration: none">
+            <img src="./icons/fluency/external-link.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            <span>Open client app</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-user">
+          <div class="flex items-center gap-2.5">
+            <span class="avatar" id="adminSidebarInitials">A</span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-[0.78rem] font-semibold text-slate-100" id="adminSidebarName">Administrator</p>
+              <p class="truncate text-[0.65rem] text-slate-500" id="adminSidebarEmail">—</p>
+            </div>
+          </div>
+          <div class="mt-2 flex items-center justify-between gap-2">
+            <span class="badge badge-warning">Admin</span>
+            <button type="button" class="btn btn-ghost btn-sm" data-admin-action="sign-out">
+              <img src="./icons/fluency/log-out.png" class="h-3.5 w-3.5 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+              Sign out
+            </button>
+          </div>
+          <a
+            href="https://icons8.com/icons/set/fluency"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="display: block; margin-top: 0.5rem; font-size: 0.6rem; color: #475569; text-decoration: none"
+            >Icons by Icons8</a
+          >
+        </div>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <a class="brand lg:hidden" href="./admin.html" aria-label="Aide iPhone administration">
+            <span class="brand-mark" style="width: 2rem; height: 2rem; border-radius: 9px">
+              <img src="./icons/fluency/help.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+            </span>
+          </a>
+          <div class="min-w-0 flex-1">
+            <p class="admin-page-title" id="adminTopTitle">Dashboard</p>
+            <p class="admin-page-sub hidden sm:block" id="adminTopSubtitle">Live support operations</p>
+          </div>
+          <span class="net-pill" id="adminNetPill" title="Connection status">
+            <span class="status-dot" id="adminNetDot"></span>
+            <span id="adminNetLabel">Online</span>
+          </span>
+          <button type="button" class="icon-btn" data-admin-action="refresh" aria-label="Refresh live data" title="Refresh live data">
+            <img src="./icons/fluency/refresh.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+          </button>
+          <button type="button" class="avatar" id="adminTopAvatar" data-admin-action="account" aria-label="Administrator account">
+            <span id="adminTopInitials">A</span>
+          </button>
+        </header>
+
+        <nav class="admin-mobile-nav" aria-label="Administration sections">
+          <button type="button" class="chip is-active" data-admin-nav="dashboard">Dashboard</button>
+          <button type="button" class="chip" data-admin-nav="tickets">Tickets</button>
+          <button type="button" class="chip" data-admin-nav="interventions">Interventions</button>
+          <button type="button" class="chip" data-admin-nav="alerts">Broadcasts</button>
+          <button type="button" class="chip" data-admin-nav="exports">Exports</button>
+        </nav>
+
+        <main class="admin-content">
+          <!-- Dashboard ------------------------------------------------------>
+          <section id="adminViewDashboard" data-admin-view="dashboard">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Live operations</p>
+                <h1 class="admin-page-title">Support at a glance</h1>
+                <p class="admin-page-sub">
+                  Telemetry, queue pressure and team activity update in real time. All timestamps are shown in your local time.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="btn btn-secondary btn-sm" data-admin-action="refresh">Refresh data</button>
+                <button type="button" class="btn btn-primary btn-sm" data-admin-nav="tickets">Open ticket queue</button>
+              </div>
+            </div>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <article class="kpi-card">
+                <div class="kpi-top">
+                  <span class="kpi-icon green">
+                    <img src="./icons/fluency/users.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  </span>
+                  <span class="badge badge-resolved">Live</span>
+                </div>
+                <p class="kpi-label">Online now</p>
+                <p class="kpi-value" id="kpiOnline">0</p>
+                <p class="kpi-hint" id="kpiOnlineHint">Waiting for telemetry…</p>
+              </article>
+
+              <article class="kpi-card">
+                <div class="kpi-top">
+                  <span class="kpi-icon amber">
+                    <img src="./icons/fluency/ticket.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  </span>
+                  <span class="badge badge-neutral" id="kpiOpenBadge">Queue</span>
+                </div>
+                <p class="kpi-label">Open tickets</p>
+                <p class="kpi-value" id="kpiOpenTickets">0</p>
+                <p class="kpi-hint" id="kpiOpenTicketsHint">Nothing waiting</p>
+              </article>
+
+              <article class="kpi-card">
+                <div class="kpi-top">
+                  <span class="kpi-icon rose">
+                    <img src="./icons/fluency/alert-triangle.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  </span>
+                  <span class="badge badge-critical" id="kpiUrgentBadge">Priority</span>
+                </div>
+                <p class="kpi-label">Urgent attention</p>
+                <p class="kpi-value" id="kpiUrgent">0</p>
+                <p class="kpi-hint" id="kpiUrgentHint">No urgent tickets</p>
+              </article>
+
+              <article class="kpi-card">
+                <div class="kpi-top">
+                  <span class="kpi-icon cyan">
+                    <img src="./icons/fluency/megaphone.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  </span>
+                  <span class="badge badge-info" id="kpiAlertsBadge">Live</span>
+                </div>
+                <p class="kpi-label">Active broadcasts</p>
+                <p class="kpi-value" id="kpiActiveAlerts">0</p>
+                <p class="kpi-hint" id="kpiActiveAlertsHint">No active notices</p>
+              </article>
+            </div>
+
+            <div class="mt-4 grid gap-4 xl:grid-cols-[1.55fr_1fr]">
+              <div class="space-y-4">
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/map.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        Live device map
+                      </h2>
+                      <p class="card-caption">GPS positions from users who are sharing diagnostics.</p>
+                    </div>
+                    <span class="badge badge-neutral" id="mapBadge">0 located</span>
+                  </div>
+                  <div class="map-shell mt-3">
+                    <div id="liveMap" aria-label="Map of users sharing their location"></div>
+                    <div id="mapEmpty" class="map-empty">
+                      <div>
+                        <p class="font-semibold text-slate-300">No locations to show yet</p>
+                        <p class="mt-1">Positions appear when a user opens the app and allows location access.</p>
+                      </div>
+                    </div>
+                    <div class="map-legend" aria-hidden="true">
+                      <span><span class="map-pin online" style="width: 8px; height: 8px; border-width: 1px"></span> Online</span>
+                      <span><span class="map-pin offline" style="width: 8px; height: 8px; border-width: 1px"></span> Away</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/activity.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        Needs attention
+                      </h2>
+                      <p class="card-caption">Unresolved tickets, newest first.</p>
+                    </div>
+                    <button type="button" class="btn btn-ghost btn-sm" data-admin-nav="tickets">View queue →</button>
+                  </div>
+                  <div class="table-wrap mt-3">
+                    <table class="data-table" style="min-width: 38rem">
+                      <thead>
+                        <tr>
+                          <th scope="col">User</th>
+                          <th scope="col">Issue</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Created</th>
+                        </tr>
+                      </thead>
+                      <tbody id="dashboardTicketBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/users.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        People
+                      </h2>
+                      <p class="card-caption">Online users first, then recent devices.</p>
+                    </div>
+                    <span class="badge badge-resolved" id="liveUsersCount">0</span>
+                  </div>
+                  <div class="mt-3 space-y-2" id="liveUsersList">
+                    <div class="loading-line"><span class="spinner"></span> Loading users…</div>
+                  </div>
+                </div>
+
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/clock.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        Team activity
+                      </h2>
+                      <p class="card-caption">Recent administrative actions.</p>
+                    </div>
+                  </div>
+                  <div class="mt-2" id="activityList">
+                    <div class="loading-line"><span class="spinner"></span> Loading activity…</div>
+                  </div>
+                </div>
+
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        Delivery status
+                      </h2>
+                    </div>
+                  </div>
+                  <dl class="context-grid mt-3">
+                    <div class="context-item"><dt>Registered devices</dt><dd id="pushDeviceCount">—</dd></div>
+                    <div class="context-item"><dt>Push channel</dt><dd id="pushChannelStatus">Checking…</dd></div>
+                    <div class="context-item"><dt>Realtime listeners</dt><dd id="listenerStatus">Starting…</dd></div>
+                    <div class="context-item"><dt>Last update</dt><dd id="lastUpdateLabel">—</dd></div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Tickets -------------------------------------------------------->
+          <section id="adminViewTickets" data-admin-view="tickets" class="hidden">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Support queue</p>
+                <h1 class="admin-page-title">Tickets</h1>
+                <p class="admin-page-sub">Process requests, assign a technician and record resolutions. Users see status changes instantly.</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-tickets-json">Export JSON</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-tickets-csv">Export CSV</button>
+              </div>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <div class="table-toolbar">
+                <label class="search-wrap">
+                  <span class="sr-only">Search tickets</span>
+                  <img src="./icons/fluency/search.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  <input id="ticketSearch" class="input" type="search" placeholder="Search subject, user, ticket id…" autocomplete="off" />
+                </label>
+                <select id="ticketStatusFilter" class="select filter-select" aria-label="Filter by status">
+                  <option value="all">All statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="in_progress">In progress</option>
+                  <option value="resolved">Resolved</option>
+                </select>
+                <select id="ticketCategoryFilter" class="select filter-select" aria-label="Filter by category">
+                  <option value="all">All categories</option>
+                </select>
+                <select id="ticketPriorityFilter" class="select filter-select" aria-label="Filter by priority">
+                  <option value="all">All priorities</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="high">High</option>
+                  <option value="normal">Normal</option>
+                  <option value="low">Low</option>
+                </select>
+                <select id="ticketDateFilter" class="select filter-select" aria-label="Filter by date">
+                  <option value="all">Any time</option>
+                  <option value="today">Today</option>
+                  <option value="7">Last 7 days</option>
+                  <option value="30">Last 30 days</option>
+                </select>
+                <button type="button" class="btn btn-ghost btn-sm" data-admin-action="clear-ticket-filters">Reset</button>
+              </div>
+
+              <div class="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <p class="help-text" id="ticketResultCount">Loading tickets…</p>
+                <p class="help-text">Select any row to open the processing panel.</p>
+              </div>
+
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">User</th>
+                      <th scope="col">Issue</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Priority</th>
+                      <th scope="col">Created</th>
+                      <th scope="col">Technician</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ticketTableBody"></tbody>
+                </table>
+              </div>
+              <div id="ticketsEmpty" class="empty-state hidden">
+                <span class="empty-state-icon">
+                  <img src="./icons/fluency/ticket.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <h3>No matching tickets</h3>
+                <p>Adjust the filters or wait for a new request to arrive.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Interventions -------------------------------------------------->
+          <section id="adminViewInterventions" data-admin-view="interventions" class="hidden">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Knowledge base</p>
+                <h1 class="admin-page-title">Intervention directory</h1>
+                <p class="admin-page-sub">Every completed fix, searchable by technician, user, issue, resolution and date.</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-interventions-json">Export JSON</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-interventions-csv">Export CSV</button>
+                <button type="button" class="btn btn-primary btn-sm" data-admin-action="new-intervention">+ New intervention</button>
+              </div>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <div class="table-toolbar">
+                <label class="search-wrap">
+                  <span class="sr-only">Search interventions</span>
+                  <img src="./icons/fluency/search.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  <input id="interventionSearch" class="input" type="search" placeholder="Search user, issue, resolution, technician…" autocomplete="off" />
+                </label>
+                <input id="interventionFrom" class="input date-input" type="date" aria-label="From date" />
+                <input id="interventionTo" class="input date-input" type="date" aria-label="To date" />
+                <select id="interventionTechnician" class="select filter-select" aria-label="Filter by technician">
+                  <option value="all">All technicians</option>
+                </select>
+                <button type="button" class="btn btn-ghost btn-sm" data-admin-action="clear-intervention-filters">Reset</button>
+              </div>
+
+              <div class="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <p class="help-text" id="interventionResultCount">Loading interventions…</p>
+                <p class="help-text">Select a row to read the full resolution.</p>
+              </div>
+
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">User</th>
+                      <th scope="col">Issue</th>
+                      <th scope="col">Technician</th>
+                      <th scope="col">Resolution</th>
+                      <th scope="col">Ticket</th>
+                    </tr>
+                  </thead>
+                  <tbody id="interventionTableBody"></tbody>
+                </table>
+              </div>
+              <div id="interventionsEmpty" class="empty-state hidden">
+                <span class="empty-state-icon">
+                  <img src="./icons/fluency/tool.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <h3>No matching interventions</h3>
+                <p>Resolve a ticket or add a manual entry to build the directory.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Broadcasts ----------------------------------------------------->
+          <section id="adminViewAlerts" data-admin-view="alerts" class="hidden">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Communication</p>
+                <h1 class="admin-page-title">Broadcasts &amp; alerts</h1>
+                <p class="admin-page-sub">Publish an in-app alert to everyone or a targeted group. Push delivery starts automatically when enabled.</p>
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-alerts-csv">Export CSV</button>
+            </div>
+
+            <div class="mt-4 grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+              <form id="alertForm" class="card card-pad" novalidate>
+                <div class="card-head">
+                  <div>
+                    <h2 class="card-title">
+                      <img src="./icons/fluency/megaphone.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                      Compose broadcast
+                    </h2>
+                    <p class="card-caption">Alerts appear at the top of the client app and can trigger a device notification.</p>
+                  </div>
+                </div>
+
+                <div id="alertFormError" class="form-error mt-3 hidden" role="alert"></div>
+
+                <div class="field mt-3">
+                  <label class="label" for="alertTitle">Title <span class="req">*</span></label>
+                  <input id="alertTitle" class="input" type="text" maxlength="120" placeholder="Service maintenance tonight" required />
+                </div>
+
+                <div class="field mt-3">
+                  <label class="label" for="alertMessage">Message <span class="req">*</span></label>
+                  <textarea id="alertMessage" class="textarea" rows="5" maxlength="1200" placeholder="Explain what is happening, who is affected and what the user should do." required></textarea>
+                  <p class="help-text"><span id="alertMessageCount">0</span> / 1200 characters</p>
+                </div>
+
+                <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div class="field">
+                    <label class="label" for="alertSeverity">Severity</label>
+                    <select id="alertSeverity" class="select">
+                      <option value="info">Information</option>
+                      <option value="warning">Important</option>
+                      <option value="critical">Critical</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label class="label" for="alertAudience">Audience</label>
+                    <select id="alertAudience" class="select">
+                      <option value="all">All users</option>
+                      <option value="users">Specific users</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div id="alertAudienceWrap" class="field mt-3 hidden">
+                  <label class="label" for="audienceSearch">Recipients</label>
+                  <input id="audienceSearch" class="input" type="search" placeholder="Search users by name or email…" autocomplete="off" />
+                  <div id="audienceList" class="audience-box mt-2" role="group" aria-label="Select alert recipients"></div>
+                  <p class="help-text" id="audienceCount">0 selected</p>
+                </div>
+
+                <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                  <label class="switch">
+                    <input id="alertActive" type="checkbox" checked />
+                    <span class="switch-track"></span>
+                    <span class="switch-label">Active immediately<span class="switch-hint">Users can see it as soon as it is published.</span></span>
+                  </label>
+                  <label class="switch">
+                    <input id="alertAutoPush" type="checkbox" checked />
+                    <span class="switch-track"></span>
+                    <span class="switch-label">Deliver push<span class="switch-hint">Requires Cloud Functions and a VAPID key.</span></span>
+                  </label>
+                </div>
+
+                <div class="field mt-3">
+                  <label class="label" for="alertExpires">Expires at (optional)</label>
+                  <input id="alertExpires" class="input date-input" type="datetime-local" />
+                  <p class="help-text">Leave empty for an alert that stays active until you deactivate it.</p>
+                </div>
+
+                <button id="alertSubmitBtn" type="submit" class="btn btn-primary mt-4">
+                  <img src="./icons/fluency/send.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Publish alert
+                </button>
+              </form>
+
+              <div class="space-y-4">
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">Client preview</h2>
+                      <p class="card-caption">How the alert card will look in the app.</p>
+                    </div>
+                  </div>
+                  <div class="broadcast-preview mt-3">
+                    <div class="preview-app">
+                      <span class="status-dot"></span>
+                      Aide iPhone · Alert
+                    </div>
+                    <h3 id="alertPreviewTitle">Your alert title</h3>
+                    <p id="alertPreviewMessage">Your message will appear here as you type.</p>
+                    <div class="mt-2 flex flex-wrap items-center gap-2">
+                      <span class="badge badge-info" id="alertPreviewSeverity">Information</span>
+                      <span class="badge badge-neutral" id="alertPreviewAudience">All users</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card card-pad">
+                  <div class="card-head">
+                    <div>
+                      <h2 class="card-title">
+                        <img src="./icons/fluency/bell.png" class="fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                        Push delivery
+                      </h2>
+                    </div>
+                  </div>
+                  <p class="help-text mt-2">
+                    Notifications require a VAPID public key in <span class="mono">firebase-config.js</span>, the Cloud Functions
+                    deployment and notification permission on each device.
+                  </p>
+                  <dl class="context-grid mt-3">
+                    <div class="context-item"><dt>Registered devices</dt><dd id="pushDeviceCountPanel">—</dd></div>
+                    <div class="context-item"><dt>Channel</dt><dd id="pushChannelPanel">Checking…</dd></div>
+                  </dl>
+                  <button type="button" class="btn btn-secondary btn-sm mt-3" data-admin-action="test-push">
+                    Send test push to my devices
+                  </button>
+                  <p class="help-text mt-2" id="pushTestHint">Uses the deployed <span class="mono">sendPush</span> callable.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <div class="card-head">
+                <div>
+                  <h2 class="card-title">Broadcast history</h2>
+                  <p class="card-caption">Newest first. Deactivate an alert to hide it from clients immediately.</p>
+                </div>
+                <span class="badge badge-neutral" id="alertHistoryCount">0 alerts</span>
+              </div>
+              <div class="table-wrap mt-3">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Created</th>
+                      <th scope="col">Alert</th>
+                      <th scope="col">Severity</th>
+                      <th scope="col">Audience</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="alertHistoryBody"></tbody>
+                </table>
+              </div>
+              <div id="alertsEmpty" class="empty-state hidden">
+                <span class="empty-state-icon">
+                  <img src="./icons/fluency/bell.png" class="h-6 w-6 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                </span>
+                <h3>No broadcasts yet</h3>
+                <p>Publish your first alert using the form above.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Exports -------------------------------------------------------->
+          <section id="adminViewExports" data-admin-view="exports" class="hidden">
+            <div class="page-heading flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p class="eyebrow">Reporting</p>
+                <h1 class="admin-page-title">Exports</h1>
+                <p class="admin-page-sub">Download operational data as CSV for spreadsheets or JSON for archival and analysis.</p>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" data-admin-action="export-all-json">Download full snapshot</button>
+            </div>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/ticket.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Support tickets
+                  <span class="badge badge-neutral ml-auto" id="exportCountTickets">0</span>
+                </h3>
+                <p>Full ticket history including status, technician, resolution and captured diagnostics.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-tickets-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-tickets-json">JSON</button>
+                </div>
+              </article>
+
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/tool.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Interventions
+                  <span class="badge badge-neutral ml-auto" id="exportCountInterventions">0</span>
+                </h3>
+                <p>Resolutions recorded by the team, with technician, date, linked ticket and notes.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-interventions-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-interventions-json">JSON</button>
+                </div>
+              </article>
+
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/activity.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Telemetry snapshots
+                  <span class="badge badge-neutral ml-auto" id="exportCountTelemetry">0</span>
+                </h3>
+                <p>Latest device snapshot per user: presence, battery, location, display and timezone.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-telemetry-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-telemetry-json">JSON</button>
+                </div>
+              </article>
+
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/users.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  User directory
+                  <span class="badge badge-neutral ml-auto" id="exportCountUsers">0</span>
+                </h3>
+                <p>Account profiles, roles and sign-in metadata. Handle as personal data.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-users-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-users-json">JSON</button>
+                </div>
+              </article>
+
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/megaphone.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Broadcasts
+                  <span class="badge badge-neutral ml-auto" id="exportCountAlerts">0</span>
+                </h3>
+                <p>Alert history including severity, audience, activation state and push summary.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-alerts-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-alerts-json">JSON</button>
+                </div>
+              </article>
+
+              <article class="export-card">
+                <h3>
+                  <img src="./icons/fluency/file-text.png" class="h-4 w-4 fluency-icon" alt="" aria-hidden="true" draggable="false" />
+                  Audit log
+                  <span class="badge badge-neutral ml-auto" id="exportCountAudit">0</span>
+                </h3>
+                <p>Administrative actions recorded by the console, useful for compliance reviews.</p>
+                <div class="export-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-audit-csv">CSV</button>
+                  <button type="button" class="btn btn-secondary btn-sm" data-admin-action="export-audit-json">JSON</button>
+                </div>
+              </article>
+            </div>
+
+            <div class="card card-pad mt-4">
+              <h2 class="card-title">Data handling</h2>
+              <p class="help-text mt-2">
+                Exports can contain personal data, location and device diagnostics. Store them in an approved location, restrict
+                access to staff who need them, and delete them when no longer required. Every export is recorded in the audit log.
+              </p>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="drawerRoot"></div>
+    <div id="modalRoot"></div>
+    <div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="./admin.js"></script>
+  </body>
+</html>

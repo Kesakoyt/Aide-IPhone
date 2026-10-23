@@ -1,0 +1,16 @@
+{
+  "name": "aide-iphone-admin-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Administrative provisioning scripts for Aide iPhone",
+  "scripts": {
+    "grant-admin": "node set-admin.js",
+    "build:css": "tailwindcss -c tailwind.config.js -i tailwind.input.css -o ../tailwind.css --minify"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

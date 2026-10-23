@@ -1,0 +1,154 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /* ------------------------------------------------------------------
+       Helpers
+       ------------------------------------------------------------------ */
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function uid() {
+      return request.auth.uid;
+    }
+
+    function userPath(id) {
+      return /databases/$(database)/documents/users/$(id);
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(userPath(uid()))
+        && get(userPath(uid())).data.role == 'admin';
+    }
+
+    function isSelf(id) {
+      return signedIn() && uid() == id;
+    }
+
+    /* ------------------------------------------------------------------
+       User profiles
+       ------------------------------------------------------------------ */
+
+    match /users/{userId} {
+      allow read: if isSelf(userId) || isAdmin();
+
+      allow create: if isSelf(userId)
+        && request.resource.data.uid == userId
+        && request.resource.data.role == 'user'
+        && request.resource.data.keys().hasOnly([
+          'uid', 'email', 'displayName', 'role', 'createdAt', 'lastLogin',
+          'authProvider', 'photoURL', 'phone'
+        ]);
+
+      allow update: if isAdmin() || (
+        isSelf(userId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName', 'lastLogin', 'authProvider', 'email', 'phone', 'photoURL'
+        ])
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    /* ------------------------------------------------------------------
+       Device telemetry — one document per user
+       ------------------------------------------------------------------ */
+
+    match /telemetry/{userId} {
+      allow read: if isSelf(userId) || isAdmin();
+      allow create, update: if isSelf(userId);
+      allow delete: if isSelf(userId) || isAdmin();
+    }
+
+    /* ------------------------------------------------------------------
+       Support tickets
+       ------------------------------------------------------------------ */
+
+    match /tickets/{ticketId} {
+      allow read: if isAdmin() || (
+        signedIn() && resource.data.userId == uid()
+      );
+
+      allow create: if signedIn()
+        && request.resource.data.userId == uid()
+        && request.resource.data.status == 'pending'
+        && request.resource.data.priority in ['low', 'normal', 'high', 'urgent']
+        && request.resource.data.category in [
+          'account', 'connectivity', 'battery', 'apps', 'security', 'hardware', 'other'
+        ]
+        && request.resource.data.attachments.size() <= 3
+        && request.resource.data.technicianId == null
+        && request.resource.data.keys().hasAll([
+          'userId', 'userEmail', 'userName', 'userIsGuest', 'category', 'subject',
+          'description', 'priority', 'status', 'attachments', 'context',
+          'createdAt', 'updatedAt', 'appVersion', 'source'
+        ]);
+
+      allow update, delete: if isAdmin();
+    }
+
+    /* ------------------------------------------------------------------
+       Intervention directory
+       ------------------------------------------------------------------ */
+
+    match /interventions/{interventionId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    /* ------------------------------------------------------------------
+       Broadcasts and per-user acknowledgements
+       ------------------------------------------------------------------ */
+
+    match /alerts/{alertId} {
+      // Any signed-in client may list active alerts. Audience filtering is
+      // applied by the client after this read, and targets are not sensitive.
+      allow read: if signedIn();
+      allow create, update, delete: if isAdmin();
+
+      match /acknowledgements/{userId} {
+        allow read: if isSelf(userId) || isAdmin();
+        allow create: if isSelf(userId)
+          && request.resource.data.uid == userId
+          && request.resource.data.alertId == alertId;
+        allow update: if isSelf(userId)
+          && request.resource.data.uid == userId;
+        allow delete: if isSelf(userId) || isAdmin();
+      }
+    }
+
+    /* ------------------------------------------------------------------
+       FCM device tokens — keyed by SHA-256(token)
+       ------------------------------------------------------------------ */
+
+    match /fcmTokens/{tokenId} {
+      allow read: if isAdmin() || (
+        signedIn() && resource.data.uid == uid()
+      );
+      allow create: if signedIn()
+        && request.resource.data.uid == uid()
+        && request.resource.data.active == true;
+      allow update: if signedIn()
+        && resource.data.uid == uid()
+        && request.resource.data.uid == uid();
+      allow delete: if signedIn() && resource.data.uid == uid();
+    }
+
+    /* ------------------------------------------------------------------
+       Audit trail — written by administrators, readable by administrators
+       ------------------------------------------------------------------ */
+
+    match /auditLogs/{entryId} {
+      allow read, create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    /* Deny anything not explicitly matched above. */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "./index.html",
+  "name": "Aide iPhone — Remote Support",
+  "short_name": "Aide iPhone",
+  "description": "Remote assistance for iPhone: share diagnostics, open a support ticket and follow your technician's resolution in real time.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./index.html?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#060913",
+  "theme_color": "#060913",
+  "categories": ["productivity", "utilities", "support"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New support request",
+      "short_name": "Get help",
+      "description": "Open a ticket with automatic diagnostics",
+      "url": "./index.html?view=support",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Alerts",
+      "short_name": "Alerts",
+      "description": "Read notices from the support team",
+      "url": "./index.html?view=alerts",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Guides & videos",
+      "short_name": "Guides",
+      "description": "Step-by-step iPhone troubleshooting",
+      "url": "./index.html?view=guides",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

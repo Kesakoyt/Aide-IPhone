@@ -1,0 +1,47 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && firestore.exists(/databases/(default)/documents/users/$(request.auth.uid))
+        && firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    function allowedContentType(contentType) {
+      return contentType.matches('image/.*')
+        || contentType == 'application/pdf'
+        || contentType == 'text/plain';
+    }
+
+    // Support ticket attachments: tickets/{userId}/{timestamp}-{index}-{name}
+    match /tickets/{userId}/{fileName} {
+      allow read: if isOwner(userId) || isAdmin();
+
+      allow create: if isOwner(userId)
+        && request.resource.size <= 8 * 1024 * 1024
+        && allowedContentType(request.resource.contentType)
+        && request.resource.metadata.ownerUid == userId;
+
+      allow update: if isOwner(userId)
+        && request.resource.size <= 8 * 1024 * 1024
+        && allowedContentType(request.resource.contentType);
+
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+
+    // Everything else is private to the Admin SDK / Cloud Functions.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

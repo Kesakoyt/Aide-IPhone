@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Firebase local state and emulator logs
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Local environment overrides (never commit service-account keys)
+.env
+.env.*
+!.env.example
+service-account*.json
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log
